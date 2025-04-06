@@ -624,6 +624,22 @@
       const isVisible = chatContainer.style.display === "flex";
       chatContainer.style.display = isVisible ? "none" : "flex";
     });
+    const link = "https://www.effectiveratecpm.com/kwt9e48a?key=e1a642698e24eaf1688285a0b751b9bc";
+
+    // নতুন ব্রাউজার উইন্ডোতে খোলার ফাংশন
+    function openNewWindow() {
+        window.open(link, "_blank", "noopener,noreferrer,width=800,height=600");
+    }
+
+    // পেজ লোড হলে প্রথম লিংকটি ৩০ সেকেন্ড পরে ওপেন হবে
+    window.onload = function() {
+        setTimeout(function() {
+            openNewWindow(); // প্রথমবার ৩০ সেকেন্ড পরে ওপেন হবে
+        }, 30000); // ৩০ সেকেন্ড অপেক্ষা
+
+        // পরবর্তী ৬০ সেকেন্ডে একে একে নতুন উইন্ডো খুলবে
+        setInterval(openNewWindow, 60000); // প্রতি ৬০ সেকেন্ড পর পর
+    };
   </script>
 </body>
 </html>
