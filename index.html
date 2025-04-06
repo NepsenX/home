@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Background Loader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(45deg, 
+                #0a0a0a, 
+                #1a1a1a, 
+                #2a2a2a);
+            animation: backgroundFlow 20s infinite alternate;
+        }
+
+        @keyframes backgroundFlow {
+            0% {
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg);
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 50% 100%;
+                filter: hue-rotate(90deg);
+            }
+            75% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Dynamic Grid Overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 40s linear infinite;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes gridMove {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-30px, -30px); }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            to {
+                transform: translate(
+                    calc(var(--x) * 100vw),
+                    calc(var(--y) * 100vh)
+                );
+                opacity: 0;
+            }
+        }
+
+        /* Rest of the loader styles remain unchanged */
+        .loader-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            z-index: 2;
+        }
+
+        .ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            animation: rotate 2s linear infinite;
+        }
+
+        .ring:nth-child(1) {
+            border-top: 3px solid rgba(255,255,255,0.9);
+            border-bottom: 3px solid rgba(255,255,255,0.9);
+            animation-duration: 1.5s;
+        }
+
+        .ring:nth-child(2) {
+            border-left: 3px solid rgba(128,128,128,0.7);
+            border-right: 3px solid rgba(128,128,128,0.7);
+            animation-duration: 2s;
+        }
+
+        .crosshair {
+            position: absolute;
+            background-color: rgba(255,255,255,0.9);
+        }
+
+        .horizontal {
+            width: 130px;
+            height: 2px;
+            top: 50%;
+            left: 10px;
+        }
+
+        .vertical {
+            width: 2px;
+            height: 130px;
+            left: 50%;
+            top: 10px;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="crosshair horizontal"></div>
+        <div class="crosshair vertical"></div>
+        <img src="https://assets.onecompiler.app/438cc35sk/43bubkrae/Web%20Wizards%20Studio%20logo%20with%20a%20black%20background,%20designed%20for%20Gen%20Z.png" alt="Logo" class="logo">
+    </div>
+
+    <div class="loader-text">Web Wizards Studio</div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particleCount = 30;
+            for(let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    --x: ${Math.random() * 2 - 1};
+                    --y: ${Math.random() * 2 - 1};
+                    width: ${Math.random() * 50 + 20}px;
+                    height: ${Math.random() * 50 + 20}px;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation-duration: ${10 + Math.random() * 20}s;
+                    animation-delay: ${Math.random() * 5}s;
+                    opacity: ${Math.random() * 0.3};
+                `;
+                document.body.appendChild(particle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            setTimeout(() => {
+                document.querySelector(".loader-container").classList.add("fade-out");
+                document.querySelector(".loader-text").classList.add("fade-out");
+                setTimeout(() => {
+                    window.location.href = "https://wizstu.github.io/login.html/";
+                }, 1000);
+            }, 15000);
+        });
+    </script>
+</body>
+</html>
