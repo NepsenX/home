@@ -23,6 +23,7 @@
       --chat-body:#0a0a0a;
       --chat-header:white;
       --chat-footer-input:white;
+      --fb-btn:#ECF0F1;
     }
 
     [data-theme="dark"] {
@@ -39,6 +40,7 @@
       --chat-body:#454242;
       --chat-header:black;
       --chat-footer-input:black;
+      --fb-btn:#2C3E50;
     }
 
     * {
@@ -316,6 +318,7 @@
         --chat-body:#454242;
         --chat-header:black;
         --chat-footer-input:black;
+        --fb-btn:#2C3E50;
       }
     }
 
@@ -332,6 +335,7 @@
         --chat-body:#0a0a0a;
         --chat-header:white;
         --chat-footer-input:white;
+        --fb-btn:#ECF0F1;
       }
     }
     /* About Section */
@@ -425,6 +429,70 @@
         display: block;
       }
     }
+     #contact {
+      background: var(--background); /* Cool gradient background */
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .contact-btn {
+      background-color: #1877f2; /* Facebook blue */
+      color: var(--text);
+      font-size: 16px;
+      padding: 15px 30px;
+      text-align: center;
+      display: inline-block;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-btn:hover {
+      background-color: #3b5998;
+      transform: scale(1.05);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-btn:active {
+      transform: scale(1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fb-btn {
+      background-color: var(--fb-btn);
+    }
+    
+    .email-btn {
+      background-color: var(--fb-btn); /* Email button with a pop of red */
+    }
 
   </style>
 </head>
@@ -508,6 +576,19 @@
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>Connection creates power.Your voice can change everything. Let’s connect.</p>
+      <div class="contact-buttons">
+        <a href="https://www.facebook.com/groups/1975968936224766" target="_blank" class="contact-btn fb-btn">Join in Group</a>
+        <a href="mailto:arafatislamlam15@gmail.com" class="contact-btn email-btn">Email Us</a>
+      </div>
+    </div>
+  </section>
+
+
 
   <script>
     function loadService(url) {
