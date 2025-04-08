@@ -718,137 +718,203 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdBlock Detector - Multi Tab</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #121212;
-      color: white;
-      margin: 0;
-      padding: 0;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-content {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 700px;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-      position: relative;
-    }
-
-    .modal-header {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #fff;
-    }
-
-    .adblock-warning {
-      color: #ff6b6b;
-      font-size: 18px;
-      font-weight: bold;
-      background: #2e0b0b;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ff6b6b;
-      margin-top: 20px;
-    }
-
-    .iframe-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .iframe-container {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      height: 250px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: transparent;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    .iframe-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      opacity: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .glass-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      opacity: 1;
-      pointer-events: none;
-    }
-
-    .glass-overlay::before {
-      content: "⚠️️ Don't Click!";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.2rem;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-      opacity: 0.9;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .close-btn img {
-      width: 32px;
-      height: 32px;
-      filter: invert(1);
-      transition: transform 0.2s ease;
-    }
-
-    .close-btn img:hover {
-      transform: scale(1.1);
-    }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #121212;
+        color: white;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+  
+      .modal-content {
+        background: linear-gradient(45deg, #1a1a1a 0%, #0a0a0a 100%);
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 700px;
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+        position: relative;
+        border: 3px solid darkred;
+        overflow: hidden;
+      }
+  
+      .modal-content::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, 
+          transparent 48%,
+          rgba(139, 0, 0, 0.1) 50%,
+          transparent 52%
+        );
+        animation: hologram 2.5s infinite linear;
+        pointer-events: none;
+      }
+  
+      .modal-header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 0 0 15px darkred;
+        letter-spacing: 2px;
+      }
+  
+      .adblock-warning {
+        color: #ff6b6b;
+        font-size: 18px;
+        font-weight: bold;
+        background: linear-gradient(45deg, #2e0b0b 0%, #1a0000 100%);
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid darkred;
+        margin-top: 20px;
+        text-shadow: 0 0 10px darkred;
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+      }
+  
+      .iframe-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+  
+      .iframe-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: transparent;
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid darkred;
+      }
+  
+      .iframe-container::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 2px solid rgba(139, 0, 0, 0.3);
+        border-radius: 12px;
+        z-index: -1;
+      }
+  
+      .iframe-container:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 0 25px rgba(139, 0, 0, 0.6);
+      }
+  
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+  
+      .glass-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(139, 0, 0, 0.1) 0%, rgba(0,0,0,0.3) 100%);
+        backdrop-filter: blur(12px) brightness(1.2);
+        opacity: 1;
+        pointer-events: none;
+      }
+  
+      .glass-overlay::before {
+        content: "⚠️SYSTEM ALERT";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+        font-family: 'Courier New', monospace;
+        color: #fff;
+        text-shadow: 0 0 10px darkred;
+        letter-spacing: 2px;
+        opacity: 0.9;
+      }
+  
+      .hidden {
+        display: none !important;
+      }
+  
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 99999;
+      }
+  
+      .close-btn img {
+        width: 32px;
+        height: 32px;
+        filter: invert(0.8) sepia(1) hue-rotate(-20deg) saturate(5);
+        transition: all 0.2s ease;
+      }
+  
+      .close-btn img:hover {
+        filter: invert(1) sepia(1) hue-rotate(0deg) saturate(10);
+        transform: scale(1.1) rotate(90deg);
+      }
+  
+      @keyframes hologram {
+        0% { transform: translate(-25%, -25%) rotate(45deg); opacity: 0.3; }
+        50% { opacity: 0.6; }
+        100% { transform: translate(25%, 25%) rotate(45deg); opacity: 0.3; }
+      }
+  
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+  
+      .iframe-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, 
+          transparent 48%,
+          rgba(139, 0, 0, 0.1) 50%,
+          transparent 52%
+        );
+        animation: hologram 1.5s infinite linear;
+        pointer-events: none;
+      }
   </style>
 </head>
 <body>
