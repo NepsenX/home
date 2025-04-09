@@ -242,7 +242,7 @@
   <script>
     // 🔁 Redirect immediately if user already signed in
     if (localStorage.getItem('userLoggedIn') === 'true') {
-      window.location.replace('https://wizstu.github.io/virtubrowse/vb.html');
+      window.location.replace('https://wizstu.github.io/home/studio.html');
     }
     const authForm = document.getElementById('auth-form');
     const credentials = document.getElementById('credentials');
@@ -283,7 +283,7 @@
       localStorage.setItem('userLoggedIn', 'true');
 
       setTimeout(() => {
-        window.location.href = 'https://wizstu.github.io/virtubrowse/vb.html';
+        window.location.href = 'https://wizstu.github.io/home/studio.html';
       }, 3000);
     });
 
@@ -325,7 +325,7 @@
 
     // Auto-login
     if (localStorage.getItem('userLoggedIn') === 'true') {
-      window.location.href = 'https://wizstu.github.io/virtubrowse/vb.html';
+      window.location.href = 'https://wizstu.github.io/home/studio.html';
     }
   </script>
 </body>
