@@ -1,36 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login / SignUp</title>
-  <link rel="icon" type="image/png" href="https://assets.onecompiler.app/438cc35sk/43bubkrae/Web%20Wizards%20Studio%20logo%20with%20a%20black%20background,%20designed%20for%20Gen%20Z.png">
+  <link rel="icon" type="image/png" href="https://lh5.googleusercontent.com/6HKpGz3Dys1jMSfICCqz9RQNdkkoATCuDjoqQKqV9lbGoaa4K_eEx3UpdBmZEiStVnJwalsZ-N-437dLirPX6Ak=w16383">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      background-color: var(--background);
       background-image: url("https://media.istockphoto.com/id/162542504/photo/earth-sunrise-in-space.jpg?s=612x612&w=0&k=20&c=yOz6xe894yVDOtt29uFDybMbNyKdpW_4vOUUEkAlaEI=");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      line-height: 1.6;
-      overflow-x: hidden;
-      transition: background-image 0.3s ease;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-
     .auth-container {
       background: rgba(0, 0, 0, 0.5);
       border-radius: 20px;
@@ -99,8 +90,59 @@
     .auth-container .toggle-link:hover {
       color: #2575fc;
     }
+    .password-wrapper { position: relative; }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #fff;
+    }
+    .auth-container input:focus {
+      border-color: #00cfff;
+      outline: none;
+    }
+    .auth-container button {
+      width: 100%;
+      padding: 12px;
+      background: #00cfff;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .auth-container button:hover {
+      background: #00a4cc;
+    }
+    .info-section {
+      margin-top: 30px;
+      text-align: left;
+    }
+    .info-section h3 {
+      font-size: 18px;
+      color: #0ff;
+      margin-bottom: 10px;
+    }
+    .info-section code {
+      display: block;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px 15px;
+      border-radius: 12px;
+      margin: 6px 0;
+      font-size: 15px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      word-break: break-word;
+      color: #fff;
+      border: 3.5px solid darkblue; /* modern red accent */
+      background-blend-mode: overlay;
+      box-shadow: 0 2px 6px rgba(255, 76, 76, 0.3);
+      transition: background 0.3s, transform 0.3s;
+    }
 
-    /* Loader */
     .loader {
       border: 4px solid #f3f3f3;
       border-top: 4px solid #2575fc;
@@ -109,111 +151,181 @@
       height: 40px;
       animation: spin 1s linear infinite;
       margin: 20px auto;
+      display: none;
     }
-
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
-    /* Success message */
     .success-message {
       font-size: 16px;
       color: #28a745;
       margin-top: 20px;
+      display: none;
+    }
+    @media (max-width: 480px) {
+      .auth-container { padding: 20px; }
+      .auth-container h2 { font-size: 24px; }
+    }
+    /* FULLSCREEN LOADER STYLES */
+    .fullscreen-loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2hpdGUlMjBuYXR1cmV8ZW58MHx8MHx8fDA%3D");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
     }
 
-    /* Cool background gradient effect */
-    .background-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.8), transparent);
-      z-index: -1;
+    .glow-loader {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid darkblue ;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 20px #fff;
     }
 
+    .fullscreen-loader span {
+      margin-top: 20px;
+      color: black;
+      font-size: 1.2rem;
+      animation: fadeIn 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
-
-  <div class="background-overlay"></div>
-
-  <div class="auth-container" id="auth-container">
-    <h2>Welcome</h2>
+  <div class="auth-container">
+    <h2>Sign Up</h2>
     <form id="auth-form">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit" id="submit-btn">Sign Up</button>
-      <div class="toggle-link" id="toggle-link">
-        Already have an account? Login
+      <div id="credentials">
+        <input type="email" id="email" placeholder="Email" required />
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Password" required />
+          <span class="toggle-password" id="toggle-password">🔒️</span>
+        </div>
+        <button type="submit">Sign up</button>
       </div>
-      <div id="loader" class="loader" style="display: none;"></div>
+
+      <div class="loader" id="loader"></div>
+
+      <div class="info-section" id="userinfo-container" style="display: none;">
+        <h3>Your Info</h3>
+        <div id="info">Loading...</div>
+        <div id="current-time" style="margin-top: 10px; text-align: center;"></div>
+        <button type="button" id="confirm-btn" style="margin-top: 20px;">Continue</button>
+      </div>
     </form>
-    <div id="success-message" class="success-message" style="display: none;">
-      <p>Account created successfully! Redirecting...</p>
-    </div>
   </div>
-
+  <!-- FULLSCREEN LOADER -->
+  <div class="fullscreen-loader" id="fullscreen-loader">
+    <div class="glow-loader"></div>
+    <span>Launching your experience...</span>
+  </div>
   <script>
-    // Checking if user is already logged in
+    // 🔁 Redirect immediately if user already signed in
     if (localStorage.getItem('userLoggedIn') === 'true') {
-      window.location.href = 'https://wizstu.github.io/home/studio.html';
-    } else {
-      let isLoginMode = false;
+      window.location.replace('https://wizstu.github.io/virtubrowse/vb.html');
+    }
+    const authForm = document.getElementById('auth-form');
+    const credentials = document.getElementById('credentials');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('toggle-password');
+    const loader = document.getElementById('loader');
+    const userInfoContainer = document.getElementById('userinfo-container');
+    const confirmBtn = document.getElementById('confirm-btn');
+    const fullscreenLoader = document.getElementById('fullscreen-loader');
 
-      const authForm = document.getElementById('auth-form');
-      const toggleLink = document.getElementById('toggle-link');
-      const submitBtn = document.getElementById('submit-btn');
-      const loader = document.getElementById('loader');
-      const successMessage = document.getElementById('success-message');
-      const authContainer = document.getElementById('auth-container');
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.textContent = type === 'password' ? '🔒️' : '🔓';
+    });
 
-      // Toggling between SignUp and Login
-      toggleLink.addEventListener('click', () => {
-        isLoginMode = !isLoginMode;
-        if (isLoginMode) {
-          document.querySelector('h2').textContent = 'Login';
-          submitBtn.textContent = 'Login';
-          toggleLink.textContent = "Don't have an account? Sign Up";
-          authForm.reset();
-        } else {
-          document.querySelector('h2').textContent = 'Sign Up';
-          submitBtn.textContent = 'Sign Up';
-          toggleLink.textContent = 'Already have an account? Login';
-          successMessage.style.display = 'none';
-        }
-      });
+    authForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      credentials.style.display = 'none';
+      loader.style.display = 'block';
 
-      // Handling form submission
-      authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+      localStorage.setItem('tempEmail', emailInput.value);
+      localStorage.setItem('tempPassword', passwordInput.value);
 
-        // Simulating a loader for asynchronous operation (e.g., API request)
-        loader.style.display = 'block';
+      setTimeout(() => {
+        loader.style.display = 'none';
+        userInfoContainer.style.display = 'block';
+        loadUserInfo();
+      }, 3000);
+    });
 
-        setTimeout(() => {
-          loader.style.display = 'none';
+    confirmBtn.addEventListener('click', () => {
+      fullscreenLoader.style.display = 'flex';
 
-          if (isLoginMode) {
-            // Login logic here (use email and password for validation)
-            window.location.href = 'https://wizstu.github.io/home/studio.html';
-          } else {
-            // Sign Up logic (store user data locally for demo purpose)
-            localStorage.setItem('userLoggedIn', 'true');
-            successMessage.style.display = 'block';
-            authForm.style.display = 'none';
+      localStorage.setItem('userEmail', localStorage.getItem('tempEmail'));
+      localStorage.setItem('userPassword', localStorage.getItem('tempPassword'));
+      localStorage.setItem('userLoggedIn', 'true');
 
-            // Redirect after a short delay to simulate a loader
-            setTimeout(() => {
-              window.location.href = 'https://wizstu.github.io/home/studio.html';
-            }, 20000); // 2 seconds delay
-          }
-        }, 20000);
-      });
+      setTimeout(() => {
+        window.location.href = 'https://wizstu.github.io/virtubrowse/vb.html';
+      }, 3000);
+    });
+
+    async function loadUserInfo() {
+      const info = {
+        Email: localStorage.getItem('tempEmail'),
+        UserAgent: navigator.userAgent,
+        Platform: navigator.platform,
+        Language: navigator.language,
+        Screen: `${screen.width}x${screen.height}`,
+        Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        Referrer: document.referrer || "None"
+      };
+
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        info.IP = data.ip;
+        info.City = data.city;
+        info.Region = data.region;
+        info.Country = data.country_name;
+        info.Street = `${data.city}, ${data.region}`;
+        info.Organization = data.org;
+      } catch {
+        info.IP = "Could not fetch IP info.";
+      }
+
+      document.getElementById("info").innerHTML = Object.entries(info).map(
+        ([k, v]) => `<code><strong>${k}:</strong> ${v}</code>`
+      ).join('<br>');
+
+      const timeDiv = document.getElementById("current-time");
+      function updateTime() {
+        timeDiv.textContent = "Current Time: " + new Date().toLocaleTimeString();
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+
+    // Auto-login
+    if (localStorage.getItem('userLoggedIn') === 'true') {
+      window.location.href = 'https://wizstu.github.io/virtubrowse/vb.html';
     }
   </script>
 </body>
