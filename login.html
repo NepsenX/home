@@ -286,42 +286,60 @@
         window.location.href = 'https://wizstu.github.io/home/studio.html';
       }, 3000);
     });
+    
+  // Function to extract name from email (removes numbers and @ domain part)
+  function extractNameFromEmail(email) {
+    const atIndex = email.indexOf('@');
+    if (atIndex === -1) return 'Unknown';  // Return 'Unknown' if '@' is not found
+  
+    const namePart = email.substring(0, atIndex);  // Get part before '@'
+    const cleanedName = namePart.replace(/[0-9]/g, '');  // Remove numbers from the name part
+  
+    // Capitalize the first letter of the name
+    const capitalizedName = cleanedName.charAt(0).toUpperCase() + cleanedName.slice(1).toLowerCase();
+    
+    return capitalizedName || 'User';  // Return 'User' if name is empty
+  }
 
-    async function loadUserInfo() {
-      const info = {
-        Email: localStorage.getItem('tempEmail'),
-        UserAgent: navigator.userAgent,
-        Platform: navigator.platform,
-        Language: navigator.language,
-        Screen: `${screen.width}x${screen.height}`,
-        Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        Referrer: document.referrer || "None"
-      };
+  async function loadUserInfo() {
+    const email = localStorage.getItem('tempEmail');  // Get email from localStorage
+    const name = extractNameFromEmail(email);  // Extract name from the email
+    
+    const info = {
+      Name: name,  // Use the cleaned name extracted from the email
+      Email: email,
+      UserAgent: navigator.userAgent,
+      Platform: navigator.platform,
+      Language: navigator.language,
+      Screen: `${screen.width}x${screen.height}`,
+      Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      Referrer: document.referrer || "None"
+    };
 
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        info.IP = data.ip;
-        info.City = data.city;
-        info.Region = data.region;
-        info.Country = data.country_name;
-        info.Street = `${data.city}, ${data.region}`;
-        info.Organization = data.org;
-      } catch {
-        info.IP = "Could not fetch IP info.";
-      }
-
-      document.getElementById("info").innerHTML = Object.entries(info).map(
-        ([k, v]) => `<code><strong>${k}:</strong> ${v}</code>`
-      ).join('<br>');
-
-      const timeDiv = document.getElementById("current-time");
-      function updateTime() {
-        timeDiv.textContent = "Current Time: " + new Date().toLocaleTimeString();
-      }
-      updateTime();
-      setInterval(updateTime, 100);
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      info.IP = data.ip;
+      info.City = data.city;
+      info.Region = data.region;
+      info.Country = data.country_name;
+      info.Street = `${data.city}, ${data.region}`;
+      info.Organization = data.org;
+    } catch {
+      info.IP = "Could not fetch IP info.";
     }
+
+    document.getElementById("info").innerHTML = Object.entries(info).map(
+      ([k, v]) => `<code><strong>${k}:</strong> ${v}</code>`
+    ).join('<br>');
+
+    const timeDiv = document.getElementById("current-time");
+    function updateTime() {
+      timeDiv.textContent = "Current Time: " + new Date().toLocaleTimeString();
+    }
+    updateTime();
+    setInterval(updateTime, 100);
+  }
 
     // Auto-login
     if (localStorage.getItem('userLoggedIn') === 'true') {
