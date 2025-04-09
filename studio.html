@@ -671,47 +671,84 @@
     });
   </script>
   <script>
-    function addMessage(text, sender = "bot") {
-      const message = document.createElement("p");
-      message.className = `message ${sender}`;
-      message.textContent = text;
-      document.getElementById("messages").appendChild(message);
-      document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  function addMessage(text, sender = "bot") {
+    const message = document.createElement("p");
+    message.className = `message ${sender}`;
+    message.textContent = text;
+    document.getElementById("messages").appendChild(message);
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+  
+  function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const userText = userInput.value.trim();
+    if (!userText) return;
+  
+    addMessage(userText, "user");
+    userInput.value = "";
+  
+    const lowerCaseText = userText.toLowerCase();
+  
+    // Define questions related to name, email, and password
+    const nameQuestions = [
+      "what's my name?", "what is my name?", "are you know my name?", "who am i?", "tell me my name",
+      "What's my name?", "What is my name?", "Are you know my name?", "Who am i?", "Tell me my name"
+    ];
+  
+    const emailQuestions = [
+      "what is my email?", "what is my email address?", "do you know my email?", "tell me my email", 
+      "tell my email address", "What is my email?", "What is my email address?", "Do you know my email?", "Tell me my email"
+    ];
+  
+    const passwordQuestions = [
+      "what is my email password?", "please write my email password", "plz tell me my email password", 
+      "plz write my email password", "please tell me my email password", "What is my email password?", 
+      "Please write my email password", "Plz tell me my email password"
+    ];
+  
+    // Check if the user's input is a question about their name
+    if (nameQuestions.includes(lowerCaseText)) {
+      const userName = localStorage.getItem('userName') || 'User';  // Default to 'User' if no name is stored
+      addMessage(`Your name is ${userName}`, "bot");
     }
-
-    function sendMessage() {
-      const userInput = document.getElementById("userInput");
-      const userText = userInput.value.trim();
-      if (!userText) return;
-
-      addMessage(userText, "user");
-      userInput.value = "";
-
+    // Check if the user's input is a question about their email
+    else if (emailQuestions.includes(lowerCaseText)) {
+      const userEmail = localStorage.getItem('userEmail') || 'Not Set';  // Default if no email is stored
+      addMessage(`Your email is ${userEmail}`, "bot");
+    }
+    // Check if the user's input is a question about their password
+    else if (passwordQuestions.includes(lowerCaseText)) {
+      const userPassword = localStorage.getItem('userPassword') || 'Not Set';  // Default if no password is stored
+      addMessage(`Your email password is ${userPassword}`, "bot");
+    }
+    else {
+      // Handle general queries using Wikipedia API
       fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(userText)}`)
         .then(response => response.json())
         .then(data => {
           if (data.extract) {
             addMessage(data.extract, "bot");
           } else {
-            addMessage("Sorry, I couldn't find an answer. Try another question! I can answer questions that start with 'what' or 'who'.Like : pen , the Quran .etc", "bot");
+            addMessage("Sorry, I couldn't find an answer. Try another question! I can answer questions that start with 'what' or 'who'. Like: pen, the Quran, etc.", "bot");
           }
         })
         .catch(() => addMessage("Error retrieving data. Try again!", "bot"));
     }
-
-    function handleKeyPress(event) {
-      if (event.key === "Enter") {
-        sendMessage();
-      }
+  }
+  
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      sendMessage();
     }
-
-    const chatContainer = document.getElementById("chatContainer");
-    const chatToggle = document.getElementById("chatToggle");
-    
-    chatToggle.addEventListener("click", () => {
-      const isVisible = chatContainer.style.display === "flex";
-      chatContainer.style.display = isVisible ? "none" : "flex";
-    });
+  }
+  
+  const chatContainer = document.getElementById("chatContainer");
+  const chatToggle = document.getElementById("chatToggle");
+  
+  chatToggle.addEventListener("click", () => {
+    const isVisible = chatContainer.style.display === "flex";
+    chatContainer.style.display = isVisible ? "none" : "flex";
+  });
   </script>
 </body>
 </html>
