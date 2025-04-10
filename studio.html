@@ -305,8 +305,17 @@
       border-radius: 10px;
       word-wrap: break-word;
     }
-    .user { background: var(--user); align-self: flex-end; }
-    .bot { background:var(--bot); align-self: flex-start; }
+    .user {
+      background: var(--user);
+      align-self: flex-end;
+      text-align: left;
+    }
+    
+    .bot {
+      background: var(--bot);
+      align-self: flex-start;
+      text-align: left;
+    }
 
     /* Dark/Light System Overrides */
     @media (prefers-color-scheme: dark) {
@@ -349,6 +358,7 @@
     .about-us {
       display: flex;
       align-items: center;
+      text-align: left;
       padding: 60px 20px;
     }
 
