@@ -550,7 +550,6 @@
       <p>Web Wizards Studio is a cutting-edge digital agency focused on creating innovative and scalable digital solutions for businesses of all sizes. With a talented team of designers, developers, and strategists, we help companies grow by building exceptional websites and applications that deliver outstanding user experiences. Whether it's web development, mobile apps, or digital marketing, Web Wizards Studio is committed to excellence in every project we undertake.</p>
     </div>
   </section>
-
   <!-- Services Grid -->
   <!-- Services Section -->
   <section class="hero" id="services">
@@ -604,9 +603,6 @@
       </div>
     </div>
   </section>
-
-
-
   <script>
     function loadService(url) {
       // Show the loader
@@ -634,7 +630,6 @@
         setTheme(theme);
       });
     });
-
     // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 'system';
     setTheme(savedTheme);
@@ -688,7 +683,6 @@
     document.getElementById("messages").appendChild(message);
     document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
   }
-  
   function sendMessage() {
     const userInput = document.getElementById("userInput");
     const userText = userInput.value.trim();
@@ -698,7 +692,6 @@
     userInput.value = "";
   
     const lowerCaseText = userText.toLowerCase();
-  
     // Define questions related to name, email, and password
     const nameQuestions = [
       "what's my name?", "what is my name?", "are you know my name?", "who am i?", "tell me my name",
@@ -751,7 +744,6 @@
       sendMessage();
     }
   }
-  
   const chatContainer = document.getElementById("chatContainer");
   const chatToggle = document.getElementById("chatToggle");
   
