@@ -399,7 +399,80 @@
     .hidden {
       display: none;
     }
+    /* Floating Language Button */
+    .language-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--background);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
 
+    .language-toggle:hover {
+      background: #3367d6;
+    }
+
+    /* Google Translate Container */
+    #google_translate_element {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      z-index: 998;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem;
+      display: none;
+    }
+
+    /* Style Google Translate dropdown */
+    #google_translate_element select {
+      font-size: 1rem !important;
+      padding: 0.5rem !important;
+      border-radius: 2px !important;
+      border: 1px solid #ccc !important;
+      background-color: var(--card-bg) !important;
+      color: var(--text-color) !important;
+      max-width: 100%;
+      width: 100% !important;
+    }
+
+    /* Reset unwanted Google Translate styles */
+    iframe.goog-te-banner-frame,
+    .goog-te-balloon-frame,
+    .goog-te-menu-frame {
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Fix iframe and dropdown on mobile */
+    @media (max-width: 600px) {
+      .language-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+
+      #google_translate_element {
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      #google_translate_element select {
+        font-size: 1rem !important;
+      }
+    }
     /* Responsive Design */
     @media (max-width: 768px) {
       .hero h1 {
@@ -525,7 +598,8 @@
     <button class="theme-btn" data-theme="">🌞</button>
     <button class="chat-toggle" id="chatToggle">💬</button>
   </div>
-
+  <button class="language-toggle" id="langToggleBtn">🌐</button>
+  <div id="google_translate_element"></div>
   <!-- Navigation -->
   <nav class="nav-container">
     <div class="nav-content">
@@ -754,6 +828,32 @@
     const isVisible = chatContainer.style.display === "flex";
     chatContainer.style.display = isVisible ? "none" : "flex";
   });
+  </script>
+  <script>
+    const toggleBtn = document.getElementById('langToggleBtn');
+    const translateEl = document.getElementById('google_translate_element');
+    let googleLoaded = false;
+
+    toggleBtn.addEventListener('click', () => {
+      if (!googleLoaded) {
+        const script = document.createElement('script');
+        script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        document.body.appendChild(script);
+        googleLoaded = true;
+      }
+      translateEl.style.display = translateEl.style.display === 'none' || !translateEl.style.display
+        ? 'block'
+        : 'none';
+    });
+
+    window.googleTranslateElementInit = () => {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,it,ja,zh,ru,pt,ar,hi,bn,ko,vi,th,tr,nl,pl,sv,fi,el,cs,hu', // Updated with 3 more languages
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
   </script>
 </body>
 </html>
