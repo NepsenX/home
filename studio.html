@@ -1,1494 +1,1200 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="https://assets.onecompiler.app/438cc35sk/43ekedjqg/Screenshot_2025-04-12_175711-Photoroom-fotor-20250412183519-removebg-preview.png">
-  <title>NeoDot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Wizards Studio</title>
+  <link rel="icon" type="image/png" href="https://assets.onecompiler.app/438cc35sk/43bubkrae/Web%20Wizards%20Studio%20logo%20with%20a%20black%20background,%20designed%20for%20Gen%20Z.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <style>
-:root {
-  --primary-color: #2563eb;
-  --primary-dark: #1e40af;
-  --bg-color: #ffffff;
-  --text-color: #1e293b;
-  --border-color: #e2e8f0;
-  --message-bg: #f8fafc;
-  --user-message-bg: #f1f5f9;
-  --sidebar-bg: #f7f7f8;
-  --sidebar-text: #334155;
-  --input-bg: #f8fafc;
-  --scrollbar-thumb: #cbd5e1;
-  --scrollbar-track: #f1f5f9;
-  --nav-bg: #ffffff;
-}
-
-[data-theme="dark"] {
-  --primary-color: #3b82f6;
-  --primary-dark: #1d4ed8;
-  --bg-color: #1e293b;
-  --text-color: #f8fafc;
-  --border-color: #334155;
-  --message-bg: #334155;
-  --user-message-bg: #475569;
-  --sidebar-bg: #0f172a;
-  --sidebar-text: #e2e8f0;
-  --input-bg: #334155;
-  --scrollbar-thumb: #475569;
-  --scrollbar-track: #1e293b;
-  --nav-bg: #1e293b;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-body {
-  background: var(--sidebar-bg);
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Mobile Navigation Bar */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--nav-bg);
-  border-top: 1px solid var(--border-color);
-  padding: 8px 0;
-  z-index: 1000;
-}
-
-.mobile-nav-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.mobile-nav-btn {
-  background: none;
-  border: none;
-  color: var(--text-color);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.mobile-nav-btn svg {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 4px;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 260px;
-  background: var(--sidebar-bg);
-  color: var(--sidebar-text);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--border-color);
-  overflow-y: auto;
-  z-index: 100;
-  position: relative;
-}
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.new-chat-btn {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.new-chat-btn:hover {
-  background: var(--primary-dark);
-}
-
-.conversation-list {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.conversation-item {
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.conversation-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.conversation-item.active {
-  background: var(--primary-color);
-  color: white;
-}
-
-.sidebar-footer {
-  padding-top: 16px;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.theme-toggle {
-  background: none;
-  border: none;
-  color: var(--sidebar-text);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Main chat area */
-.chat-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--bg-color);
-  position: relative;
-}
-
-.header {
-  background: var(--bg-color);
-  color: var(--text-color);
-  padding: 16px 24px;
-  font-size: 20px;
-  font-weight: 600;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header .logo {
-  width: 28px;
-  height: 28px;
-}
-
-.messages {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-bottom: 80px; /* Space for mobile nav */
-}
-
-.messages p {
-  padding: 16px 20px;
-  border-radius: 12px;
-  max-width: 85%;
-  word-wrap: break-word;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.messages .user {
-  background: var(--user-message-bg);
-  color: var(--text-color);
-  align-self: flex-end;
-  border-radius: 12px 12px 0 12px;
-  border: 1px solid var(--border-color);
-}
-
-.messages .bot {
-  background: var(--message-bg);
-  color: var(--text-color);
-  align-self: flex-start;
-  border-radius: 12px 12px 12px 0;
-  border: 1px solid var(--border-color);
-}
-/* Special message types */
-.weather-alert {
-  background: var(--weather-bg);
-  border: 1px solid var(--primary-color);
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  color: var(--text-color); /* Set text color */
-}
-
-.earthquake-alert {
-  background: var(--earthquake-bg);
-  border: 1px solid #ff4d4f;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  color: var(--text-color); /* Set text color */
-}
-
-.alert-title {
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.weather-icon {
-  width: 24px;
-  height: 24px;
-}
-
-.weather-details {
-  display: flex;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-.weather-detail {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.weather-map {
-  width: 100%;
-  height: 200px;
-  border-radius: 8px;
-  margin-top: 12px;
-  border: 1px solid var(--border-color);
-}
-
-.earthquake-details {
-  margin-top: 8px;
-}
-
-.earthquake-item {
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 77, 79, 0.2);
-}
-
-.earthquake-magnitude {
-  font-weight: 600;
-  color: #ff4d4f;
-}
-
-.content-section {
-  margin-top: 16px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.media-section {
-  margin-top: 16px;
-}
-
-.wikipedia-container {
-  background: var(--message-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 16px;
-}
-
-.wikipedia-title {
-  font-weight: 600;
-  color: var(--primary-color);
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.wikipedia-logo {
-  width: 20px;
-  height: 20px;
-}
-
-.wikipedia-text {
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-.image-container {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.image-container img {
-  max-width: 180px;
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-}
-
-.video-container {
-  margin-top: 16px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  border: none;
-  border-radius: 8px;
-  width: 100%;
-  min-height: 320px;
-}
-
-.video-info {
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--text-color);
-  opacity: 0.8;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.video-info span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.input-container {
-  display: flex;
-  padding: 16px;
-  background: var(--bg-color);
-  border-top: 1px solid var(--border-color);
-  position: fixed;
-  bottom: 0;
-  left: 260px;
-  right: 0;
-  z-index: 90;
-}
-
-.input-container input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  outline: none;
-  font-size: 16px;
-  background: var(--input-bg);
-  color: var(--text-color);
-}
-
-.input-container input:focus {
-  border-color: var(--primary-color);
-}
-
-.input-container button {
-  padding: 12px 24px;
-  border: none;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-left: 12px;
-  font-weight: 500;
-}
-
-.input-container button:hover {
-  background: var(--primary-dark);
-}
-
-.typing-indicator {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 16px 20px;
-}
-
-.typing-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--text-color);
-  opacity: 0.6;
-  border-radius: 50%;
-  animation: typingAnimation 1.4s infinite ease-in-out;
-}
-
-@keyframes typingAnimation {
-  0%, 60%, 100% {
-    transform: translateY(0);
-    opacity: 0.6;
-  }
-  30% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
-}
-
-.messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-.messages::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-  border-radius: 8px;
-}
-
-.messages::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: 8px;
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-  border-radius: 8px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: 8px;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.messages > div {
-  animation: fadeIn 0.3s ease-out forwards;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    left: -260px;
-    top: 0;
-    bottom: 0;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-  }
-  
-  .sidebar.open {
-    transform: translateX(260px);
-  }
-  .messages{
-    max-height: 86%;
-  }
-  .chat-container {
-    margin-left: 0;
-  }
-  
-  .input-container {
-    left: 0;
-    bottom: 60px; /* Above mobile nav */
-  }
-  
-  .mobile-nav {
-    display: block;
-  }
-  
-  .mobile-menu-btn {
-    display: flex;
-    position: fixed;
-    left: 10px;
-    top: 10px;
-    z-index: 1100;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-}
-
-/* Mobile menu button (hidden by default) */
-.mobile-menu-btn {
-  display: none;
-}
+    :root {
+      --primary: #7c3aed;
+      --secondary: #f472b6;
+      --background: #ffffff;
+      --text: #1e293b;
+      --card-bg: #f8fafc;
+      --border: #e2e8f0;
+      --user:#fff;
+      --bot:#fff;
+      --chat-toggle:black;
+      --chat-footer:#222;
+      --chat-body:#0a0a0a;
+      --chat-header:white;
+      --chat-footer-input:white;
+      --fb-btn:#ECF0F1;
+    }
+
+    [data-theme="dark"] {
+      --primary: #a78bfa;
+      --secondary: #f9a8d4;
+      --background: #0f172a;
+      --text: #f8fafc;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --user:#000;
+      --bot:#000;
+      --chat-toggle:black;
+      --chat-footer:#222;
+      --chat-body:#454242;
+      --chat-header:black;
+      --chat-footer-input:black;
+      --fb-btn:#2C3E50;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.1s;
+    }
+
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: var(--background);
+        background-image: url("https://media.istockphoto.com/id/162542504/photo/earth-sunrise-in-space.jpg?s=612x612&w=0&k=20&c=yOz6xe894yVDOtt29uFDybMbNyKdpW_4vOUUEkAlaEI=");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        transition: background-image 0.3s ease;
+      }
+    
+      [data-theme="light"] body {
+        background-image: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2hpdGUlMjBuYXR1cmV8ZW58MHx8MHx8fDA%3D");
+      }
+    
+      [data-theme="dark"] body {
+        background-image: url("https://media.istockphoto.com/id/162542504/photo/earth-sunrise-in-space.jpg?s=612x612&w=0&k=20&c=yOz6xe894yVDOtt29uFDybMbNyKdpW_4vOUUEkAlaEI=");
+      }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 50px;
+      display: flex;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .theme-btn {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+    }
+
+    .theme-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Glowing Gradient Text */
+    .gradient-text {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+
+    /* Modern Navigation */
+    .nav-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      position: Sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-content {
+      max-width:1200000px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px; /* navbar নিচে মেনু নামবে */
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      border-radius: 12px;
+      z-index: 999;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, var(--primary), transparent);
+      transform: rotate(45deg);
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    .service-card img {
+      width: 100px; /* Fixed width */
+      height: 100px; /* Fixed height */
+      object-fit: cover; /* Ensures the image covers the area without distortion */
+      border-radius: 8px; /* Optional, for rounded corners */
+      margin-bottom: 10px; /* Optional, adds some spacing between the image and text */
+    }
+    .service-card h3{
+      color: var(--text);
+    }
+
+    .chat-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      max-width: 90%;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      display: none;
+      flex-direction: column;
+    }
+    
+    .chat-header {
+      background: var(--chat-header);
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    
+    .chat-body {
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      background: var(--chat-body);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-footer {
+      display: flex;
+      background: var(--chat-footer);
+      padding: 10px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    
+    .chat-footer input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      background: var(--chat-footer-input);
+    }
+    
+    .chat-footer button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      margin-left: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--chat-toggle);
+      color: #000;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    }
+    
+    .message {
+      max-width: 75%;
+      padding: 8px 12px;
+      margin: 5px;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+    .user {
+      background: var(--user);
+      align-self: flex-end;
+      text-align: left;
+    }
+    
+    .bot {
+      background: var(--bot);
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    /* Dark/Light System Overrides */
+    @media (prefers-color-scheme: dark) {
+      [data-theme="system"] {
+        --background: #0f172a;
+        --text: #f8fafc;
+        --card-bg: #1e293b;
+        --border: #334155;
+        --user:#000;
+        --bot:#000;
+        --chat-toggle:black;
+        --chat-footer:#222;
+        --chat-body:#454242;
+        --chat-header:black;
+        --chat-footer-input:black;
+        --fb-btn:#2C3E50;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      [data-theme="system"] {
+        --background: #ffffff;
+        --text: #1e293b;
+        --card-bg: #f8fafc;
+        --border: #e2e8f0;
+        --user:#fff;
+        --bot:#fff;
+        --chat-toggle:black;
+        --chat-footer:#222;
+        --chat-body:#0a0a0a;
+        --chat-header:white;
+        --chat-footer-input:white;
+        --fb-btn:#ECF0F1;
+      }
+      body {
+        background-image: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2hpdGUlMjBuYXR1cmV8ZW58MHx8MHx8fDA%3D");
+      }
+    }
+    /* About Section */
+    .about-us {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      padding: 60px 20px;
+    }
+
+    .about-us img {
+      max-width: 425px;
+      margin-right: 30px;
+    }
+
+    .about-us .description {
+      flex: 1;
+    }
+
+    .about-us h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .about-us p {
+      font-size: 1rem;
+    }
+    /* Loader Spinner */
+    .loader-spinner {
+      border-top-color: var(--primary);
+      border-bottom-color: var(--primary);
+      border-left-color: transparent;
+      border-right-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hidden {
+      display: none;
+    }
+    /* Floating Language Button */
+    .language-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--background);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .language-toggle:hover {
+      background: #3367d6;
+    }
+
+    /* Google Translate Container */
+    #google_translate_element {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      z-index: 998;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem;
+      display: none;
+    }
+
+    /* Style Google Translate dropdown */
+    #google_translate_element select {
+      font-size: 1rem !important;
+      padding: 0.5rem !important;
+      border-radius: 2px !important;
+      border: 1px solid #ccc !important;
+      background-color: var(--card-bg) !important;
+      color: var(--text-color) !important;
+      max-width: 100%;
+      width: 100% !important;
+    }
+
+    /* Reset unwanted Google Translate styles */
+    iframe.goog-te-banner-frame,
+    .goog-te-balloon-frame,
+    .goog-te-menu-frame {
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Fix iframe and dropdown on mobile */
+    @media (max-width: 600px) {
+      .language-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+
+      #google_translate_element {
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      #google_translate_element select {
+        font-size: 1rem !important;
+      }
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .theme-switcher {
+        bottom: 1rem;
+        right: 1rem;
+      }
+      .about-us {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-us img {
+        margin-bottom: 150px;
+      }
+      .services {
+        flex-direction: column;
+        align-items: center;
+      }
+      .text-4xl md:text-6xl font-extrabold mb-4{
+        flex-direction: column;
+        text-align: center;
+      }
+      .text-lg md:text-xl text-gray-400{
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.5rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+     #contact {
+      background: var(--background); /* Cool gradient background */
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .contact-btn {
+      background-color: #1877f2; /* Facebook blue */
+      color: var(--text);
+      font-size: 16px;
+      padding: 15px 30px;
+      text-align: center;
+      display: inline-block;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-btn:hover {
+      background-color: #3b5998;
+      transform: scale(1.05);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-btn:active {
+      transform: scale(1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fb-btn {
+      background-color: var(--fb-btn);
+    }
+    
+    .email-btn {
+      background-color: var(--fb-btn); /* Email button with a pop of red */
+    }
+    
   </style>
 </head>
 <body>
-  <button class="mobile-menu-btn" id="mobileMenuBtn">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="white"/>
-    </svg>
-  </button>
-
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <button class="new-chat-btn" id="newChatBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        New Chat
-      </button>
-    </div>
-    <div class="conversation-list" id="conversationList">
-      <!-- Conversations will be added here -->
-    </div>
-    <div class="sidebar-footer">
-      <button class="theme-toggle" id="themeToggle">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3V4M12 20V21M21 12H20M4 12H3M18.364 18.364L17.656 17.656M6.344 6.344L5.636 5.636M18.364 5.636L17.656 6.344M6.344 17.656L5.636 18.364M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span id="themeText">Dark Mode</span>
-      </button>
-    </div>
+    <!-- Theme Switcher -->
+  <div class="theme-switcher">
+    <button class="theme-btn" data-theme="light">🌞</button>
+    <button class="theme-btn" data-theme="dark">🌙</button>
+    <button class="theme-btn" data-theme="system">💻</button>
+    <button class="theme-btn" data-theme="">🌞</button>
+    <button class="chat-toggle" id="chatToggle">💬</button>
   </div>
-
-  <div class="chat-container">
-    <div class="header">
-      <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="var(--primary-color)"/>
-        <path d="M12 6C8.686 6 6 8.686 6 12C6 15.314 8.686 18 12 18C15.314 18 18 15.314 18 12C18 8.686 15.314 6 12 6Z" fill="white"/>
-        <path d="M12 10C10.895 10 10 10.895 10 12C10 13.105 10.895 14 12 14C13.105 14 14 13.105 14 12C14 10.895 13.105 10 12 10Z" fill="var(--primary-color)"/>
-      </svg>
-      <span id="chatTitle">New Chat</span>
+  <button class="language-toggle" id="langToggleBtn">🌐</button>
+  <div id="google_translate_element"></div>
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-content">
+      <h1 class="gradient-text">Web Wizards Studio</h1>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-    <div class="messages" id="messages">
-      <!-- Messages will be loaded here -->
+  </nav>
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20">
+    <div class="text-center">
+      <h2 class="text-4xl md:text-6xl font-extrabold mb-4"><span id="typed"></span></h2>
+      <p class="text-lg md:text-xl text-gray-400">Your Modern journey to success begins here.</p>
     </div>
-    <div class="input-container">
-      <input id="userInput" placeholder="Tell me any topic name..." type="text" onkeypress="handleKeyPress(event)" />
+  </section>
+  <!-- About Us Section -->
+  <section class="about-us" id="about">
+    <img src="https://assets.onecompiler.app/438cc35sk/43bubkrae/Web%20Wizards%20Studio%20logo%20with%20dark%20mode%20for%20Gen%20Z.png" alt="Web Wizards Studio Logo">
+    <div class="description">
+      <h2>About Web Wizards Studio</h2>
+      <p>Web Wizards Studio is a cutting-edge digital agency focused on creating innovative and scalable digital solutions for businesses of all sizes. With a talented team of designers, developers, and strategists, we help companies grow by building exceptional websites and applications that deliver outstanding user experiences. Whether it's web development, mobile apps, or digital marketing, Web Wizards Studio is committed to excellence in every project we undertake.</p>
+    </div>
+  </section>
+  <!-- Services Grid -->
+  <!-- Services Section -->
+  <section class="hero" id="services">
+    <h1>Our Services</h1>
+  </section>
+  <section class="services-grid" id="services">
+    <div class="service-card" onclick="loadService('https://wizstu.github.io/NeoDot/')">
+      <img src="https://assets.onecompiler.app/438cc35sk/43ekedjqg/Screenshot_2025-04-12_175711-Photoroom-fotor-20250412183519-removebg-preview.png" alt="Service Logo">
+      <h3>NeoDot</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://sites.google.com/view/islamic27')">
+      <img src="https://assets.onecompiler.app/438cc35sk/43cww7ucw/Untitled.jpg" alt="Service Logo">
+      <h3>Islamic Web</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://sites.google.com/view/basikno1/')">
+      <img src="https://assets.onecompiler.app/438cc35sk/43cge3a6x/BasiKno%20logo%20representing%20Mathematics,%20Physics,%20and%20Chemistry%20in%20a%20minimalist,%20evergreen%20style.png" alt="Service Logo">
+      <h3>Basikno</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://wizstu.github.io/virtubrowse')">
+      <img src="https://assets.onecompiler.app/438cc35sk/43cww7ucw/virtuBrowse%20logo%20with%20white,%20light%20blue,%20and%20black%20tones,%20transparent%20background,%20true%20web%20look.png" alt="Service Logo">
+      <h3>Virtubrowse</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://wizstu.github.io/cloudgaminghub/')">
+      <img src="https://assets.onecompiler.app/438cc35sk/43byh7sar/cloud%20gaming%20hub%20logo%20for%20gen%20z%20with%20black%20background%20and%20every%20meaning%20of%20game.png" alt="Service Logo">
+      <h3>Cloud Gaming Hub</h3>
+    </div>
+    <!-- Repeat the above block 47 times as required -->
+  </section>
+  <div id="loader" class="hidden fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="loader-spinner w-16 h-16 border-t-4 border-b-4 border-primary border-solid rounded-full animate-spin"></div>
+  </div>
+  <!-- Chat Bubble -->
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">Chatbot</div>
+    <div class="chat-body" id="messages">
+      <p class="message bot">Hello! How can I help you? I can answer questions that start with "what" or "who".</p>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="userInput" placeholder="Type here..." onkeypress="handleKeyPress(event)">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>Connection creates power.Your voice can change everything. Let’s connect.</p>
+      <div class="contact-buttons">
+        <a href="https://www.facebook.com/groups/1975968936224766" target="_blank" class="contact-btn fb-btn">Join in Group</a>
+        <a href="mailto:arafatislamlam15@gmail.com" class="contact-btn email-btn">Email Us</a>
+      </div>
+    </div>
+  </section>
+  <script>
+    function loadService(url) {
+      // Show the loader
+      document.getElementById('loader').classList.remove('hidden');
+      
+      // Redirect to the URL after a brief delay to allow the loader to appear
+      setTimeout(function() {
+        window.location.href = url; // Open in the same tab
+      }, 6000); // Adjust delay as needed (1000ms = 1 second)
+    }
+    // Theme Switching
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const html = document.documentElement;
 
-  <!-- Mobile Navigation Bar -->
-  <div class="mobile-nav">
-    <div class="mobile-nav-buttons">
-      <button class="mobile-nav-btn" id="mobileSidebarToggle">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="currentColor"/>
-        </svg>
-        <span>Menu</span>
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeButtons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
+
+    themeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.theme;
+        setTheme(theme);
+      });
+    });
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    setTheme(savedTheme);
+
+    // Mobile Menu
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.innerHTML = '☰';
+    mobileMenuBtn.classList.add('mobile-menu-btn');
+    document.querySelector('.nav-content').appendChild(mobileMenuBtn);
+
+    mobileMenuBtn.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Service Card Animation
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
+  <!-- Typed.js Animation -->
+  <script>
+    new Typed('#typed', {
+      strings: ['Web Wizards Studio.', 'We are web Dev.', 'Future Ready.', 'We Make Digital Magic 🪄', 'Crafting identity.', 'Innovation through code.', 'Designing the future.', 'Your vision, our expertise.', 'Creativity on the web.', 'Magic meets tech.', 'Shaping the digital world.', 'Ideas into websites.', 'Powering success with code.', 'Web solutions for tomorrow.', 'Future-proofing presence.', 'Unleashing design power.', 'Reimagining your brand.', 'More than websites.', 'Next-level dev.', 'Seamless experiences.', 'We turn code into magic.', 'Digital solutions that work.', 'Empowering businesses.', 'Pioneering the frontier.', 'Building tomorrow’s sites.', 'Elevating digital journeys.', 'Excellence in code.', 'Transforming lives online.', 'Design from code.', 'Pushing dev limits.', 'Experiences, not just sites.', 'Magic in every line.', 'Redefining experiences.', 'Developing the future.', 'Dreams into reality.', 'Timeless web design.', 'We don’t just code.', 'Bridges through dev.', 'Your ideas, our craft.', 'Web that stands out.', 'Innovate for success.', 'Design for tomorrow.', 'Every pixel counts.', 'Purpose-driven dev.', 'Code, creativity, power.', 'Empowering the web.', 'Sites into experiences.', 'A team of wizards.'],
+      typeSpeed: 60,
+      backSpeed: 30,
+      loop: true
+    });
+  </script>
+  <script>
+  function addMessage(text, sender = "bot") {
+    const message = document.createElement("p");
+    message.className = `message ${sender}`;
+    message.textContent = text;
+    document.getElementById("messages").appendChild(message);
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+  function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const userText = userInput.value.trim();
+    if (!userText) return;
+  
+    addMessage(userText, "user");
+    userInput.value = "";
+  
+    const lowerCaseText = userText.toLowerCase();
+    // Define questions related to name, email, and password
+    const nameQuestions = [
+      "what's my name?", "what is my name?", "are you know my name?", "who am i?", "tell me my name",
+      "What's my name?", "What is my name?", "Are you know my name?", "Who am i?", "Tell me my name"
+    ];
+  
+    const emailQuestions = [
+      "what is my email?", "what is my email address?", "do you know my email?", "tell me my email", 
+      "tell my email address", "What is my email?", "What is my email address?", "Do you know my email?", "Tell me my email"
+    ];
+  
+    const passwordQuestions = [
+      "what is my email password?", "please write my email password", "plz tell me my email password", 
+      "plz write my email password", "please tell me my email password", "What is my email password?", 
+      "Please write my email password", "Plz tell me my email password"
+    ];
+  
+    // Check if the user's input is a question about their name
+    if (nameQuestions.includes(lowerCaseText)) {
+      const userName = localStorage.getItem('userName') || 'User';  // Default to 'User' if no name is stored
+      addMessage(`Your name is ${userName}`, "bot");
+    }
+    // Check if the user's input is a question about their email
+    else if (emailQuestions.includes(lowerCaseText)) {
+      const userEmail = localStorage.getItem('userEmail') || 'Not Set';  // Default if no email is stored
+      addMessage(`Your email is ${userEmail}`, "bot");
+    }
+    // Check if the user's input is a question about their password
+    else if (passwordQuestions.includes(lowerCaseText)) {
+      const userPassword = localStorage.getItem('userPassword') || 'Not Set';  // Default if no password is stored
+      addMessage(`Your email password is ${userPassword}`, "bot");
+    }
+    else {
+      // Handle general queries using Wikipedia API
+      fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(userText)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.extract) {
+            addMessage(data.extract, "bot");
+          } else {
+            addMessage("Sorry, I couldn't find an answer. Try another question! I can answer questions that start with 'what' or 'who'. Like: pen, the Quran, etc.", "bot");
+          }
+        })
+        .catch(() => addMessage("Error retrieving data. Try again!", "bot"));
+    }
+  }
+  
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  }
+  const chatContainer = document.getElementById("chatContainer");
+  const chatToggle = document.getElementById("chatToggle");
+  
+  chatToggle.addEventListener("click", () => {
+    const isVisible = chatContainer.style.display === "flex";
+    chatContainer.style.display = isVisible ? "none" : "flex";
+  });
+  </script>
+  <script>
+    const toggleBtn = document.getElementById('langToggleBtn');
+    const translateEl = document.getElementById('google_translate_element');
+    let googleLoaded = false;
+
+    toggleBtn.addEventListener('click', () => {
+      if (!googleLoaded) {
+        const script = document.createElement('script');
+        script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        document.body.appendChild(script);
+        googleLoaded = true;
+      }
+      translateEl.style.display = translateEl.style.display === 'none' || !translateEl.style.display
+        ? 'block'
+        : 'none';
+    });
+
+    window.googleTranslateElementInit = () => {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,it,ja,zh,ru,pt,ar,hi,bn,ko,vi,th,tr,nl,pl,sv,fi,el,cs,hu', // Updated with 3 more languages
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdBlock Detector - Multi Tab</title>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #121212;
+        color: white;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+  
+      .modal-content {
+        background: linear-gradient(45deg, #1a1a1a 0%, #0a0a0a 100%);
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 700px;
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+        position: relative;
+        border: 3px solid darkred;
+        overflow: hidden;
+      }
+  
+      .modal-content::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, 
+          transparent 48%,
+          rgba(139, 0, 0, 0.1) 50%,
+          transparent 52%
+        );
+        animation: hologram 2.5s infinite linear;
+        pointer-events: none;
+      }
+  
+      .modal-header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 0 0 15px darkred;
+        letter-spacing: 2px;
+      }
+  
+      .adblock-warning {
+        color: #ff6b6b;
+        font-size: 18px;
+        font-weight: bold;
+        background: linear-gradient(45deg, #2e0b0b 0%, #1a0000 100%);
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid darkred;
+        margin-top: 20px;
+        text-shadow: 0 0 10px darkred;
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+      }
+  
+      .iframe-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+  
+      .iframe-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: transparent;
+        box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid darkred;
+      }
+  
+      .iframe-container::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border: 2px solid rgba(139, 0, 0, 0.3);
+        border-radius: 12px;
+        z-index: -1;
+      }
+  
+      .iframe-container:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 0 25px rgba(139, 0, 0, 0.6);
+      }
+  
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+  
+      .glass-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(139, 0, 0, 0.1) 0%, rgba(0,0,0,0.3) 100%);
+        backdrop-filter: blur(12px) brightness(1.2);
+        opacity: 1;
+        pointer-events: none;
+      }
+  
+      .glass-overlay::before {
+        content: "⚠️SYSTEM ALERT";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+        font-family: 'Courier New', monospace;
+        color: #fff;
+        text-shadow: 0 0 10px darkred;
+        letter-spacing: 2px;
+        opacity: 0.9;
+      }
+  
+      .hidden {
+        display: none !important;
+      }
+  
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 99999;
+      }
+  
+      .close-btn img {
+        width: 32px;
+        height: 32px;
+        filter: invert(0.8) sepia(1) hue-rotate(-20deg) saturate(5);
+        transition: all 0.2s ease;
+      }
+  
+      .close-btn img:hover {
+        filter: invert(1) sepia(1) hue-rotate(0deg) saturate(10);
+        transform: scale(1.1) rotate(90deg);
+      }
+  
+      @keyframes hologram {
+        0% { transform: translate(-25%, -25%) rotate(45deg); opacity: 0.3; }
+        50% { opacity: 0.6; }
+        100% { transform: translate(25%, 25%) rotate(45deg); opacity: 0.3; }
+      }
+  
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+  
+      .iframe-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, 
+          transparent 48%,
+          rgba(139, 0, 0, 0.1) 50%,
+          transparent 52%
+        );
+        animation: hologram 1.5s infinite linear;
+        pointer-events: none;
+      }
+  </style>
+</head>
+<body>
+
+  <div id="adblock-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">
+        <img src="https://cdn-icons-png.flaticon.com/512/359/359778.png" alt="Close" />
       </button>
-      <button class="mobile-nav-btn" id="mobileNewChatBtn">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span>New Chat</span>
-      </button>
-      <button class="mobile-nav-btn" id="mobileThemeToggle">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3V4M12 20V21M21 12H20M4 12H3M18.364 18.364L17.656 17.656M6.344 6.344L5.636 5.636M18.364 5.636L17.656 6.344M6.344 17.656L5.636 18.364M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span id="mobileThemeText">Theme</span>
-      </button>
+      <div class="modal-header">Advertisements</div>
+      <div class="adblock-warning" id="adblock-warning" style="display: none;">
+        ⚠️ AdBlock Detected! Please disable it!
+      </div>
+      <div class="iframe-wrapper hidden" id="iframe-wrapper">
+        <!-- Iframes will be injected here -->
+      </div>
     </div>
   </div>
 
-<script>
-    // Free YouTube video search API (no key required)
-    async function searchYouTubeVideos(query) {
-      try {
-        // Using a proxy service that doesn't require API keys
-        const response = await fetch(`https://youtube-proxy.fly.dev/search?q=${encodeURIComponent(query)}`);
-        const data = await response.json();
-        
-        if (data.videos && data.videos.length > 0) {
-          // Sort by views (descending) to get most popular videos
-          const sortedVideos = data.videos.sort((a, b) => {
-            const viewsA = parseInt(a.views.replace(/\D/g, '')) || 0;
-            const viewsB = parseInt(b.views.replace(/\D/g, '')) || 0;
-            return viewsB - viewsA;
-          });
-          
-          return sortedVideos.slice(0, 3); // Return top 3 most viewed videos
+  <script>
+    const adLink = "https://www.effectiveratecpm.com/kwt9e48a?key=e1a642698e24eaf1688285a0b751b9bc";
+
+    function detectAdBlock(callback) {
+      let isBlocked = false;
+      let checkDone = 0;
+
+      // Check 1: adsbox element
+      let testAd = document.createElement("div");
+      testAd.innerHTML = "&nbsp;";
+      testAd.className = "adsbox";
+      testAd.style.display = "block";
+      testAd.style.position = "absolute";
+      testAd.style.left = "-9999px";
+      document.body.appendChild(testAd);
+
+      setTimeout(function () {
+        if (testAd.offsetHeight === 0 || testAd.offsetParent === null) {
+          isBlocked = true;
         }
-        return [];
-      } catch (error) {
-        console.error("YouTube search error:", error);
-        return [];
-      }
-    }
+        testAd.remove();
+        done();
+      }, 100);
 
-    // Get user's IP address and location
-    async function getUserLocation() {
-      try {
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const ip = ipData.ip || 'Unknown';
-        
-        const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
-        const locationData = await locationResponse.json();
-        
-        return {
-          ip: ip,
-          city: locationData.city || 'Dhaka',
-          country: locationData.country_name || 'Bangladesh'
-        };
-      } catch (error) {
-        console.error("Error fetching location:", error);
-        return {
-          ip: 'Unknown',
-          city: 'Dhaka',
-          country: 'Bangladesh'
-        };
-      }
-    }
+      // Check 2: block adsbygoogle script
+      let script = document.createElement("script");
+      script.type = "text/javascript";
+      script.onerror = function () {
+        isBlocked = true;
+        done();
+      };
+      script.onload = function () {
+        done();
+      };
+      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+      document.body.appendChild(script);
 
-    // Get weather data
-    async function getWeatherData(city = 'Dhaka') {
-      try {
-        // First get coordinates for the city
-        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
-        const geoData = await geoResponse.json();
-        
-        if (geoData.results && geoData.results.length > 0) {
-          const { latitude, longitude } = geoData.results[0];
-          
-          // Then get weather data
-          const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
-          const weatherData = await weatherResponse.json();
-          
-          return {
-            ...weatherData,
-            city: city
-          };
+      function done() {
+        checkDone++;
+        if (checkDone === 2) {
+          callback(isBlocked);
         }
-        
-        // Fallback to Dhaka if city not found
-        const fallbackResponse = await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&current_weather=true');
-        const fallbackData = await fallbackResponse.json();
-        
-        return {
-          ...fallbackData,
-          city: 'Dhaka'
-        };
-      } catch (error) {
-        console.error("Error fetching weather:", error);
-        return null;
       }
     }
 
-    // Get earthquake data
-    async function getEarthquakeData() {
-      try {
-        // Using USGS earthquake API
-        const response = await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson');
-        const data = await response.json();
-        return data.features.slice(0, 3); // Get top 3 recent earthquakes
-      } catch (error) {
-        console.error("Error fetching earthquake data:", error);
-        return [];
+    function loadIframes() {
+      const iframeWrapper = document.getElementById("iframe-wrapper");
+      iframeWrapper.innerHTML = "";
+      for (let i = 0; i < 2; i++) {
+        let container = document.createElement("div");
+        container.className = "iframe-container";
+
+        let overlay = document.createElement("div");
+        overlay.className = "glass-overlay";
+
+        let iframe = document.createElement("iframe");
+        iframe.src = adLink;
+        iframe.loading = "lazy";
+
+        container.appendChild(overlay);
+        container.appendChild(iframe);
+        iframeWrapper.appendChild(container);
       }
     }
 
-    // Local storage for conversations
-    let conversations = JSON.parse(localStorage.getItem('conversations')) || [];
-    let currentConversationId = null;
-    let userLocation = {
-      ip: 'Unknown',
-      city: 'Dhaka',
-      country: 'Bangladesh'
+    function checkAndLoad() {
+      detectAdBlock(function (isBlocked) {
+        const warning = document.getElementById("adblock-warning");
+        const iframeWrapper = document.getElementById("iframe-wrapper");
+
+        if (isBlocked) {
+          warning.style.display = "block";
+          iframeWrapper.classList.add("hidden");
+        } else {
+          warning.style.display = "none";
+          iframeWrapper.classList.remove("hidden");
+          loadIframes();
+        }
+      });
+    }
+
+    function openModal() {
+      document.getElementById("adblock-modal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("adblock-modal").style.display = "none";
+      setTimeout(() => {
+        checkAndLoad();
+        openModal();
+      }, 120000); // recheck every 60s
+    }
+    function openNewWindow() {
+        window.open(adLink, "_blank", "noopener,noreferrer,width=800,height=600");
+    }
+    window.onload = function() {
+        checkAndLoad();
+        openModal();
+
+        // First ad will open after 30 seconds
+        setTimeout(function() {
+            openNewWindow(); // Open the first ad after 30 seconds
+        }, 10000);
+
+        // New ad will open every 60 seconds
+        setInterval(openNewWindow, 180000); // Open the second ad every 60 seconds
     };
-    let lastWeatherUpdate = 0;
-    let lastEarthquakeUpdate = 0;
-
-    // Initialize the app
-    async function init() {
-      loadConversations();
-      setupEventListeners();
-      applyThemePreference();
-      userLocation = await getUserLocation();
-      
-      // Create a new conversation if none exists
-      if (conversations.length === 0) {
-        createNewConversation();
-      } else {
-        // Load the most recent conversation
-        loadConversation(conversations[0].id);
-      }
-      
-      // Load weather and earthquake data
-      updateWeatherAndEarthquakeData();
-      
-      // Set up periodic updates (every 1 minute)
-      setInterval(updateWeatherAndEarthquakeData, 60000);
-    }
-
-    // Update weather and earthquake data if needed
-    async function updateWeatherAndEarthquakeData() {
-      const now = Date.now();
-      
-      // Update weather if more than 1 minute old
-      if (now - lastWeatherUpdate > 60000) {
-        await loadWeatherData();
-        lastWeatherUpdate = now;
-      }
-      
-      // Update earthquake data if more than 1 minute old
-      if (now - lastEarthquakeUpdate > 60000) {
-        await loadEarthquakeData();
-        lastEarthquakeUpdate = now;
-      }
-    }
-
-    // Load weather data
-    async function loadWeatherData() {
-      const weather = await getWeatherData(userLocation.city);
-      
-      const messagesContainer = document.getElementById('messages');
-      
-      // Clear existing weather alert if any
-      const existingWeatherAlert = document.querySelector('.weather-alert');
-      if (existingWeatherAlert) existingWeatherAlert.remove();
-      
-      // Add weather alert
-      if (weather) {
-        const weatherAlert = document.createElement('div');
-        weatherAlert.className = 'weather-alert';
-        
-        const temp = weather.current_weather.temperature;
-        const windspeed = weather.current_weather.windspeed;
-        const weathercode = weather.current_weather.weathercode;
-        
-        // Simple weather code to text mapping
-        const weatherDescriptions = {
-          0: 'Clear sky',
-          1: 'Mainly clear',
-          2: 'Partly cloudy',
-          3: 'Overcast',
-          45: 'Fog',
-          48: 'Depositing rime fog',
-          51: 'Light drizzle',
-          53: 'Moderate drizzle',
-          55: 'Dense drizzle',
-          56: 'Light freezing drizzle',
-          57: 'Dense freezing drizzle',
-          61: 'Slight rain',
-          63: 'Moderate rain',
-          65: 'Heavy rain',
-          66: 'Light freezing rain',
-          67: 'Heavy freezing rain',
-          71: 'Slight snow fall',
-          73: 'Moderate snow fall',
-          75: 'Heavy snow fall',
-          77: 'Snow grains',
-          80: 'Slight rain showers',
-          81: 'Moderate rain showers',
-          82: 'Violent rain showers',
-          85: 'Slight snow showers',
-          86: 'Heavy snow showers',
-          95: 'Thunderstorm',
-          96: 'Thunderstorm with slight hail',
-          99: 'Thunderstorm with heavy hail'
-        };
-        
-        const weatherDesc = weatherDescriptions[weathercode] || 'Unknown weather';
-        
-        let alertHTML = `
-          <div class="alert-title">
-            <svg class="weather-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="var(--primary-color)"/>
-              <path d="M12 6V8M12 16V18M6.828 9.172L8.243 10.586M17.657 14.828L16.243 13.414M16 12H18M6 12H8M6.828 14.828L8.243 13.414M17.657 9.172L16.243 10.586" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Current Weather in ${weather.city}
-          </div>
-          <p>${weatherDesc}</p>
-          <div class="weather-details">
-            <div class="weather-detail">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              ${temp}°C
-            </div>
-            <div class="weather-detail">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              ${windspeed} km/h wind
-            </div>
-          </div>
-          <div class="weather-map">
-            <img src="https://storage.googleapis.com/pod_public/1300/159298.jpg" alt="Weather map" style="width:100%;height:100%;object-fit:cover;">
-          </div>
-        `;
-        
-        weatherAlert.innerHTML = alertHTML;
-        
-        // Insert at the beginning of messages
-        if (messagesContainer.firstChild) {
-          messagesContainer.insertBefore(weatherAlert, messagesContainer.firstChild);
-        } else {
-          messagesContainer.appendChild(weatherAlert);
-        }
-      }
-    }
-
-    // Load earthquake data
-    async function loadEarthquakeData() {
-      const earthquakes = await getEarthquakeData();
-      
-      const messagesContainer = document.getElementById('messages');
-      
-      // Clear existing earthquake alert if any
-      const existingEarthquakeAlert = document.querySelector('.earthquake-alert');
-      if (existingEarthquakeAlert) existingEarthquakeAlert.remove();
-      
-      // Add earthquake alerts if any
-      if (earthquakes.length > 0) {
-        const earthquakeAlert = document.createElement('div');
-        earthquakeAlert.className = 'earthquake-alert';
-        
-        let alertHTML = `
-          <div class="alert-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="#ff4d4f"/>
-              <path d="M12 8V12M12 16H12.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Recent Earthquake Alerts
-          </div>
-          <div class="earthquake-details">
-        `;
-        
-        earthquakes.forEach(quake => {
-          const magnitude = quake.properties.mag;
-          const place = quake.properties.place;
-          const time = new Date(quake.properties.time).toLocaleString();
-          
-          alertHTML += `
-            <div class="earthquake-item">
-              <span class="earthquake-magnitude">M${magnitude}</span> - ${place} (${time})
-            </div>
-          `;
-        });
-        
-        alertHTML += `</div>`;
-        earthquakeAlert.innerHTML = alertHTML;
-        
-        // Insert at the beginning of messages
-        if (messagesContainer.firstChild) {
-          messagesContainer.insertBefore(earthquakeAlert, messagesContainer.firstChild);
-        } else {
-          messagesContainer.appendChild(earthquakeAlert);
-        }
-      }
-    }
-
-    // Set up event listeners
-    function setupEventListeners() {
-      document.getElementById('newChatBtn').addEventListener('click', createNewConversation);
-      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-      document.getElementById('mobileMenuBtn').addEventListener('click', toggleSidebar);
-      
-      // Mobile nav buttons
-      document.getElementById('mobileSidebarToggle').addEventListener('click', toggleSidebar);
-      document.getElementById('mobileNewChatBtn').addEventListener('click', createNewConversation);
-      document.getElementById('mobileThemeToggle').addEventListener('click', toggleTheme);
-    }
-
-    // Create a new conversation
-    function createNewConversation() {
-      const newConversation = {
-        id: Date.now().toString(),
-        title: "New Chat",
-        messages: [
-          {
-            sender: "bot",
-            content: "Hello! I'm Neo Chat. Tell me any topic name and I'll provide information with images and relevant videos when available.",
-            timestamp: new Date().toISOString()
-          }
-        ],
-        createdAt: new Date().toISOString()
-      };
-      
-      conversations.unshift(newConversation);
-      saveConversations();
-      loadConversation(newConversation.id);
-      
-      // Load weather and earthquake data for new conversation
-      updateWeatherAndEarthquakeData();
-    }
-
-    // Load a conversation by ID
-    function loadConversation(conversationId) {
-      currentConversationId = conversationId;
-      const conversation = conversations.find(c => c.id === conversationId);
-      
-      if (!conversation) return;
-      
-      // Update chat title
-      document.getElementById('chatTitle').textContent = conversation.title;
-      
-      // Clear and rebuild messages
-      const messagesContainer = document.getElementById('messages');
-      messagesContainer.innerHTML = '';
-      
-      // First add the initial bot message
-      const initialMessage = conversation.messages.find(msg => 
-        msg.sender === 'bot' && 
-        msg.content.includes("Hello! I'm Neo")
-      );
-      
-      if (initialMessage) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = initialMessage.sender;
-        
-        const msgContent = document.createElement('p');
-        msgContent.textContent = initialMessage.content;
-        
-        msgDiv.appendChild(msgContent);
-        messagesContainer.appendChild(msgDiv);
-      }
-      
-      // Then process all other messages
-      conversation.messages.forEach(msg => {
-        if (msg === initialMessage) return;
-        
-        const msgDiv = document.createElement('div');
-        msgDiv.className = msg.sender;
-        
-        // Check if this is a bot message with media content
-        if (msg.sender === 'bot' && msg.mediaContent) {
-          // Reconstruct the complete answer with media
-          const textP = document.createElement('p');
-          textP.textContent = msg.content;
-          msgDiv.appendChild(textP);
-          
-          const mediaDiv = document.createElement('div');
-          mediaDiv.innerHTML = msg.mediaContent;
-          msgDiv.appendChild(mediaDiv);
-        } else {
-          // Regular text message
-          const msgContent = document.createElement('p');
-          msgContent.textContent = msg.content;
-          msgDiv.appendChild(msgContent);
-        }
-        
-        messagesContainer.appendChild(msgDiv);
-      });
-      
-      // Load weather and earthquake data if this is the first conversation
-      if (conversationId === conversations[0].id) {
-        updateWeatherAndEarthquakeData();
-      }
-      
-      // Scroll to bottom
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      
-      // Update active conversation in sidebar
-      updateActiveConversation();
-    }
-
-    // Save conversations to local storage
-    function saveConversations() {
-      localStorage.setItem('conversations', JSON.stringify(conversations));
-    }
-
-    // Load conversations from local storage
-    function loadConversations() {
-      const conversationList = document.getElementById('conversationList');
-      conversationList.innerHTML = '';
-      
-      conversations.forEach(conversation => {
-        const conversationItem = document.createElement('div');
-        conversationItem.className = 'conversation-item';
-        conversationItem.textContent = conversation.title;
-        conversationItem.dataset.id = conversation.id;
-        
-        conversationItem.addEventListener('click', () => {
-          loadConversation(conversation.id);
-        });
-        
-        conversationList.appendChild(conversationItem);
-      });
-      
-      updateActiveConversation();
-    }
-
-    // Update active conversation in sidebar
-    function updateActiveConversation() {
-      const conversationItems = document.querySelectorAll('.conversation-item');
-      conversationItems.forEach(item => {
-        if (item.dataset.id === currentConversationId) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-    }
-
-    // Update conversation title based on first user message
-    function updateConversationTitle(messageContent) {
-      const conversation = conversations.find(c => c.id === currentConversationId);
-      if (!conversation || conversation.title !== "New Chat") return;
-      
-      // Use first 30 chars of the message as title
-      const newTitle = messageContent.length > 30 
-        ? messageContent.substring(0, 30) + '...' 
-        : messageContent;
-      
-      conversation.title = newTitle;
-      saveConversations();
-      loadConversations();
-      document.getElementById('chatTitle').textContent = newTitle;
-    }
-
-    // Toggle between dark and light theme
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // Update theme toggle text
-      document.getElementById('themeText').textContent = 
-        newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
-      document.getElementById('mobileThemeText').textContent = 
-        newTheme === 'dark' ? 'Light' : 'Dark';
-    }
-
-    // Apply user's theme preference
-    function applyThemePreference() {
-      const savedTheme = localStorage.getItem('theme') || 
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      document.getElementById('themeText').textContent = 
-        savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
-      document.getElementById('mobileThemeText').textContent = 
-        savedTheme === 'dark' ? 'Light' : 'Dark';
-    }
-
-    // Toggle sidebar on mobile
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
-
-    // Check for personal information questions
-    function checkPersonalInfoQuestions(text) {
-      const lowerCaseText = text.toLowerCase();
-      
-      // Define questions related to name, email, and password
-      const nameQuestions = [
-        "what's my name?", "what is my name?", "do you know my name?", "who am i?", "tell me my name",
-        "What's my name?", "What is my name?", "Do you know my name?", "Who am i?", "Tell me my name",
-        "my name is", "i am", "call me"
-      ];
-    
-      const emailQuestions = [
-        "what is my email?", "what is my email address?", "do you know my email?", "tell me my email", 
-        "tell my email address", "What is my email?", "What is my email address?", "Do you know my email?", 
-        "Tell me my email", "my email is", "email address is"
-      ];
-    
-      const passwordQuestions = [
-        "what is my password?", "what is my email password?", "please write my email password", 
-        "plz tell me my email password", "plz write my email password", "please tell me my email password", 
-        "What is my password?", "What is my email password?", "Please write my email password", 
-        "Plz tell me my email password", "my password is", "password is"
-      ];
-    
-      const ipQuestions = [
-        "what is my ip?", "what's my ip address?", "do you know my ip?", "tell me my ip address",
-        "What is my IP?", "What's my IP address?", "Do you know my IP?", "Tell me my IP address",
-        "show my ip", "what is my internet address"
-      ];
-    
-      // Check if the user is telling their name
-      if (nameQuestions.some(q => lowerCaseText.includes(q)) || 
-          lowerCaseText.startsWith("my name is") || 
-          lowerCaseText.startsWith("i am") || 
-          lowerCaseText.startsWith("call me")) {
-        
-        // Extract name from statement
-        let name = text;
-        if (lowerCaseText.startsWith("my name is")) {
-          name = text.substring("my name is".length).trim();
-        } else if (lowerCaseText.startsWith("i am")) {
-          name = text.substring("i am".length).trim();
-        } else if (lowerCaseText.startsWith("call me")) {
-          name = text.substring("call me".length).trim();
-        }
-        
-        // If it's a question about their name
-        if (nameQuestions.some(q => lowerCaseText === q.toLowerCase())) {
-          const userName = localStorage.getItem('userName') || 'Not Set';
-          return { type: 'name', response: `Your name is ${userName}` };
-        }
-        
-        // If they're telling their name
-        localStorage.setItem('userName', name);
-        return { type: 'name', response: `Okay, I'll remember your name is ${name}` };
-      }
-      
-      // Check if the user is telling their email
-      else if (emailQuestions.some(q => lowerCaseText.includes(q)) || 
-             lowerCaseText.startsWith("my email is") || 
-             lowerCaseText.includes("email address is")) {
-        
-        // Extract email from statement
-        let email = text;
-        if (lowerCaseText.startsWith("my email is")) {
-          email = text.substring("my email is".length).trim();
-        } else if (lowerCaseText.includes("email address is")) {
-          const parts = text.split("email address is");
-          email = parts[1].trim();
-        }
-        
-        // If it's a question about their email
-        if (emailQuestions.some(q => lowerCaseText === q.toLowerCase())) {
-          const userEmail = localStorage.getItem('userEmail') || 'Not Set';
-          return { type: 'email', response: `Your email is ${userEmail}` };
-        }
-        
-        // If they're telling their email
-        localStorage.setItem('userEmail', email);
-        return { type: 'email', response: `I've stored your email address as ${email}` };
-      }
-      
-      // Check if the user is telling their password
-      else if (passwordQuestions.some(q => lowerCaseText.includes(q)) || 
-             lowerCaseText.startsWith("my password is")) {
-        
-        // Extract password from statement
-        let password = text;
-        if (lowerCaseText.startsWith("my password is")) {
-          password = text.substring("my password is".length).trim();
-        }
-        
-        // If it's a question about their password
-        if (passwordQuestions.some(q => lowerCaseText === q.toLowerCase())) {
-          const userPassword = localStorage.getItem('userPassword') || 'Not Set';
-          return { type: 'password', response: `Your password is ${userPassword}` };
-        }
-        
-        // If they're telling their password
-        localStorage.setItem('userPassword', password);
-        return { type: 'password', response: `I've stored your password` };
-      }
-      
-      // Check if the user is asking about their IP
-      else if (ipQuestions.some(q => lowerCaseText.includes(q))) {
-        return { type: 'ip', response: `Your IP address is ${userLocation.ip}` };
-      }
-      
-      return null;
-    }
-
-    // Send message function
-    async function sendMessage() {
-      const userInput = document.getElementById('userInput');
-      const query = userInput.value.trim();
-      if (!query) return;
-
-      // Add user message to UI
-      addMessage(query, 'user');
-      
-      // Update conversation title if this is the first user message
-      if (conversations.find(c => c.id === currentConversationId).messages.length === 1) {
-        updateConversationTitle(query);
-      }
-      
-      // Add user message to conversation
-      addMessageToConversation(query, 'user');
-      
-      userInput.value = '';
-      
-      // Show typing indicator
-      showTypingIndicator();
-      
-      // First check for personal info questions
-      const personalInfoResponse = checkPersonalInfoQuestions(query);
-      if (personalInfoResponse) {
-        addMessage(personalInfoResponse.response, 'bot');
-        addMessageToConversation(personalInfoResponse.response, 'bot');
-        hideTypingIndicator();
-        return;
-      }
-      
-      // Otherwise get answer from APIs
-      await getAnswer(query);
-      
-      // Hide typing indicator
-      hideTypingIndicator();
-    }
-
-    // Add message to UI
-    function addMessage(text, sender = 'bot', media = '') {
-      const msgContainer = document.createElement('div');
-      msgContainer.className = sender;
-
-      const msg = document.createElement('p');
-      msg.textContent = text;
-
-      msgContainer.appendChild(msg);
-
-      if (media) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'media';
-        wrapper.innerHTML = media;
-        msgContainer.appendChild(wrapper);
-      }
-
-      document.getElementById('messages').appendChild(msgContainer);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    }
-
-    // Add message to current conversation
-    function addMessageToConversation(content, sender, mediaContent = '') {
-      const conversation = conversations.find(c => c.id === currentConversationId);
-      if (!conversation) return;
-      
-      const message = {
-        sender,
-        content,
-        timestamp: new Date().toISOString()
-      };
-      
-      // Store media content if provided
-      if (mediaContent) {
-        message.mediaContent = mediaContent;
-      }
-      
-      conversation.messages.push(message);
-      saveConversations();
-    }
-
-    // Show typing indicator
-    function showTypingIndicator() {
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'bot typing-indicator';
-      typingDiv.id = 'typingIndicator';
-      typingDiv.innerHTML = `
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      `;
-      document.getElementById('messages').appendChild(typingDiv);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-    }
-
-    // Hide typing indicator
-    function hideTypingIndicator() {
-      const typingIndicator = document.getElementById('typingIndicator');
-      if (typingIndicator) {
-        typingIndicator.remove();
-      }
-    }
-
-    // Get answer from APIs
-    async function getAnswer(query) {
-      let hasWikipediaContent = false;
-      let wikipediaText = "";
-      let wikipediaImage = "";
-      let otherImages = [];
-      let video = "";
-      let videoInfo = null;
-
-      // Try to get Wikipedia content first
-      try {
-        const wikiRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
-        const wikiData = await wikiRes.json();
-        if (wikiData.extract) {
-          wikipediaText = wikiData.extract;
-          if (wikiData.thumbnail?.source) {
-            wikipediaImage = wikiData.thumbnail.source;
-          }
-          hasWikipediaContent = true;
-        }
-      } catch (error) {
-        console.error("Wikipedia API error:", error);
-      }
-
-      // Get additional images from DuckDuckGo
-      try {
-        const ddgRes = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_redirect=1`);
-        const ddgData = await ddgRes.json();
-        if (ddgData.RelatedTopics) {
-          otherImages = ddgData.RelatedTopics
-            .filter(topic => topic.Icon?.URL)
-            .map(topic => topic.Icon.URL)
-            .slice(0, 3);
-        }
-      } catch (error) {
-        console.error("DuckDuckGo API error:", error);
-      }
-
-      // Get YouTube videos
-      const videos = await searchYouTubeVideos(query);
-      if (videos.length > 0) {
-        // Get the most viewed video (already sorted by searchYouTubeVideos)
-        const bestVideo = videos[0];
-        video = `<iframe src="https://www.youtube.com/embed/${bestVideo.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        videoInfo = {
-          views: bestVideo.views,
-          title: bestVideo.title
-        };
-      }
-
-      // Create message container
-      const msgContainer = document.createElement('div');
-      msgContainer.className = 'bot';
-
-      // Create main message paragraph
-      const msgParagraph = document.createElement('p');
-      msgParagraph.textContent = `Here's what I found about "${query}":`;
-      msgContainer.appendChild(msgParagraph);
-
-      // Create content sections container
-      const contentSections = document.createElement('div');
-      contentSections.className = 'content-section';
-
-      // Add images first (Wikipedia image + other images)
-      const allImages = [];
-      if (wikipediaImage) allImages.push(wikipediaImage);
-      allImages.push(...otherImages);
-      
-      if (allImages.length > 0) {
-        const mediaSection = document.createElement('div');
-        mediaSection.className = 'media-section';
-        
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'image-container';
-        
-        allImages.forEach(imgSrc => {
-          const imgElement = document.createElement('img');
-          imgElement.src = imgSrc;
-          imgElement.alt = query;
-          imageContainer.appendChild(imgElement);
-        });
-        
-        mediaSection.appendChild(imageContainer);
-        contentSections.appendChild(mediaSection);
-      }
-
-      // Add Wikipedia content if available
-      if (hasWikipediaContent) {
-        const wikiSection = document.createElement('div');
-        wikiSection.className = 'wikipedia-container';
-        
-        const wikiTitle = document.createElement('div');
-        wikiTitle.className = 'wikipedia-title';
-        wikiTitle.innerHTML = `
-          <svg class="wikipedia-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
-            <path d="M12 6C8.686 6 6 8.686 6 12C6 15.314 8.686 18 12 18C15.314 18 18 15.314 18 12C18 8.686 15.314 6 12 6Z" fill="white"/>
-            <path d="M12 10C10.895 10 10 10.895 10 12C10 13.105 10.895 14 12 14C13.105 14 14 13.105 14 12C14 10.895 13.105 10 12 10Z" fill="currentColor"/>
-          </svg>
-          Wikipedia Summary
-        `;
-        
-        const wikiText = document.createElement('div');
-        wikiText.className = 'wikipedia-text';
-        wikiText.textContent = wikipediaText;
-        
-        wikiSection.appendChild(wikiTitle);
-        wikiSection.appendChild(wikiText);
-        contentSections.appendChild(wikiSection);
-      }
-
-      // Add video if available
-      if (video) {
-        const videoSection = document.createElement('div');
-        videoSection.className = 'video-container';
-        videoSection.innerHTML = video;
-        
-        // Add video info (views, title if available)
-        if (videoInfo) {
-          const infoDiv = document.createElement('div');
-          infoDiv.className = 'video-info';
-          
-          if (videoInfo.views) {
-            const viewsSpan = document.createElement('span');
-            viewsSpan.innerHTML = `
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z" fill="currentColor"/>
-              </svg>
-              ${videoInfo.views}
-            `;
-            infoDiv.appendChild(viewsSpan);
-          }
-          
-          if (videoInfo.title) {
-            const titleSpan = document.createElement('span');
-            titleSpan.textContent = videoInfo.title;
-            infoDiv.appendChild(titleSpan);
-          }
-          
-          videoSection.appendChild(infoDiv);
-        }
-        
-        contentSections.appendChild(videoSection);
-      }
-
-      // If no content was found at all
-      if (!hasWikipediaContent && allImages.length === 0 && !video) {
-        const noResultsMsg = document.createElement('p');
-        noResultsMsg.textContent = "I couldn't find any information about that. Try asking something else.";
-        msgContainer.appendChild(noResultsMsg);
-      } else {
-        msgContainer.appendChild(contentSections);
-      }
-
-      // Add the message to the chat
-      document.getElementById('messages').appendChild(msgContainer);
-      document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-      
-      // Store the complete answer (with media) in conversation
-      addMessageToConversation(
-        `Here's what I found about "${query}":`,
-        'bot',
-        contentSections.outerHTML
-      );
-    }
-
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') sendMessage();
-    }
-
-    // Initialize the app when DOM is loaded
-    document.addEventListener('DOMContentLoaded', init);
+  </script>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJKG8NXX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-QCJKG8NXX0');
   </script>
 </body>
 </html>
