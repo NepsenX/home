@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="https://assets.onecompiler.app/438cc35sk/43fcju7j3/th-removebg-preview__3_-removebg-preview%20(1).png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-  <style>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
@@ -23,18 +23,25 @@
       padding: 20px;
     }
     .auth-container {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       border-radius: 20px;
       padding: 40px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      max-width: 450px;
+      box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 207, 255, 0.1);
       text-align: center;
-      transition: transform 0.3s ease-in-out;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(0, 207, 255, 0.2);
+      backdrop-filter: blur(8px);
     }
 
     .auth-container:hover {
       transform: translateY(-10px);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.6),
+        inset 0 0 25px rgba(0, 207, 255, 0.15);
     }
 
     .auth-container h2 {
@@ -42,55 +49,59 @@
       font-weight: 600;
       margin-bottom: 30px;
       letter-spacing: 1px;
+      color: #00f2fe;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
     }
 
     .auth-container input {
       width: 100%;
-      padding: 14px;
+      padding: 14px 20px;
       margin: 15px 0;
-      background: transparent;
-      border: 2px solid #fff;
+      background: rgba(0, 10, 20, 0.5);
+      border: 2px solid rgba(0, 207, 255, 0.5);
       border-radius: 25px;
       color: white;
       font-size: 16px;
-      transition: border-color 0.3s;
+      transition: all 0.3s ease;
       outline: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .auth-container input:focus {
-      border-color: #2575fc;
+      border-color: #00cfff;
+      box-shadow: 
+        0 0 15px rgba(0, 207, 255, 0.4),
+        inset 0 0 10px rgba(0, 207, 255, 0.1);
     }
 
     .auth-container button {
       width: 100%;
       padding: 14px;
-      background: #2575fc;
+      background: linear-gradient(135deg, #00cfff, #008cff);
       border: none;
       border-radius: 25px;
       font-size: 16px;
       color: white;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
       margin-top: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 143, 255, 0.3);
     }
 
     .auth-container button:hover {
-      background: #1a5db8;
+      background: linear-gradient(135deg, #00b8e6, #0077cc);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 143, 255, 0.4);
     }
 
-    .auth-container .toggle-link {
-      display: block;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s;
+    .password-wrapper { 
+      position: relative;
+      margin: 15px 0;
     }
-
-    .auth-container .toggle-link:hover {
-      color: #2575fc;
-    }
-    .password-wrapper { position: relative; }
+    
     .toggle-password {
       position: absolute;
       top: 50%;
@@ -98,75 +109,183 @@
       transform: translateY(-50%);
       cursor: pointer;
       font-size: 18px;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
     }
-    .auth-container input:focus {
-      border-color: #00cfff;
-      outline: none;
-    }
-    .auth-container button {
-      width: 100%;
-      padding: 12px;
-      background: #00cfff;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      color: white;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .auth-container button:hover {
-      background: #00a4cc;
-    }
-    .info-section {
-      margin-top: 30px;
-      text-align: left;
-    }
-    .info-section h3 {
-      font-size: 18px;
-      color: #0ff;
-      margin-bottom: 10px;
-    }
-    .info-section code {
-      display: block;
-      background: black;
-      padding: 10px 15px;
-      border-radius: 12px;
-      margin: 6px 0;
-      font-size: 15px;
-      font-family: 'Fira Code', 'Courier New', monospace;
-      word-break: break-word;
-      color: #fff;
-      border: 3.5px solid darkblue; /* modern red accent */
-      background-blend-mode: overlay;
-      box-shadow: 0 2px 6px rgba(255, 76, 76, 0.3);
-      transition: background 0.3s, transform 0.3s;
+    
+    .toggle-password:hover {
+      color: #00cfff;
+      transform: translateY(-50%) scale(1.1);
     }
 
+    /* INFO SECTION - SUB CARD DESIGN */
+    .info-section {
+      background: rgba(0, 5, 15, 0.8);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 30px;
+      box-shadow: 
+        0 4px 25px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(0, 207, 255, 0.1);
+      border: 1px solid rgba(0, 207, 255, 0.15);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .info-section h3 {
+      font-size: 1.4rem;
+      color: #00f2fe;
+      margin-bottom: 20px;
+      text-align: left;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .info-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00f2fe, transparent);
+    }
+
+    .typing-line {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: rgba(0, 10, 30, 0.6);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 10px 0;
+      border-left: 4px solid #00f2fe;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .typing-line strong {
+      min-width: 140px;
+      color: #00f2fe;
+      font-weight: 600;
+      display: inline-block;
+      text-align: left;
+      margin-right: 12px;
+    }
+    
+    .typing-line span {
+      flex: 1;
+      text-align: left;
+    }
+
+    .typing-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(0, 242, 254, 0) 0%, 
+        rgba(0, 242, 254, 0.1) 50%, 
+        rgba(0, 242, 254, 0) 100%);
+      transform: translateX(-100%);
+    }
+
+    .typing-line:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      background: rgba(0, 15, 40, 0.7);
+    }
+
+    .typing-line:hover::before {
+      animation: shine 1.5s infinite;
+    }
+    .typing-line .info-value {
+      display: inline-block;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: bottom;
+      font-size: 1rem;
+    }
+    
+    .typing-line.long .info-value {
+      font-size: 0.85rem;
+    }
+
+    @keyframes shine {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .typing-line strong {
+      color: #00f2fe;
+      font-weight: 500;
+      margin-right: 8px;
+    }
+
+    /* CLOCK STYLING */
+    #current-time {
+      background: rgba(0, 10, 30, 0.7);
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      margin: 25px auto 10px;
+      text-align: center;
+      width: fit-content;
+      box-shadow: 
+        0 3px 15px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(0, 207, 255, 0.2);
+      border: 1px solid rgba(0, 207, 255, 0.2);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: 
+        fadeInUp 0.6s 0.3s forwards,
+        pulse 2s infinite alternate;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      from {
+        box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.2);
+      }
+      to {
+        box-shadow: 0 0 0 8px rgba(0, 242, 254, 0);
+      }
+    }
+
+    /* LOADERS */
     .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #2575fc;
+      border: 4px solid rgba(243, 243, 243, 0.1);
+      border-top: 4px solid #00cfff;
       border-radius: 50%;
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
       margin: 20px auto;
       display: none;
+      box-shadow: 0 0 10px rgba(0, 207, 255, 0.3);
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .success-message {
-      font-size: 16px;
-      color: #28a745;
-      margin-top: 20px;
-      display: none;
-    }
-    @media (max-width: 480px) {
-      .auth-container { padding: 20px; }
-      .auth-container h2 { font-size: 24px; }
-    }
+
     /* FULLSCREEN LOADER STYLES */
     .fullscreen-loader {
       position: fixed;
@@ -209,7 +328,61 @@
       from { opacity: 0.5; }
       to { opacity: 1; }
     }
-  </style>
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .auth-container { 
+        padding: 25px;
+        border-radius: 15px;
+      }
+      
+      .auth-container h2 { 
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+      
+      .info-section {
+        padding: 18px;
+        margin-top: 20px;
+      }
+      
+      .typing-line {
+        padding: 12px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .typing-line strong {
+        min-width: auto;
+        margin-bottom: 5px;
+      }
+      
+      .typing-line span {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .typing-line {
+        flex-wrap: nowrap;
+      }
+      
+      .typing-line.long {
+        flex-wrap: wrap;
+      }
+      
+      .typing-line.long strong {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+      
+      .typing-line.long .info-value {
+        width: 100%;
+        white-space: normal;
+        word-break: break-all;
+      }
+    }
+</style>
 </head>
 <body>
   <div class="auth-container">
@@ -244,7 +417,7 @@
     if (localStorage.getItem('userLoggedIn') === 'true') {
       window.location.replace('https://wizstu.github.io/home/studio.html');
     }
-  
+    
     const authForm = document.getElementById('auth-form');
     const credentials = document.getElementById('credentials');
     const emailInput = document.getElementById('email');
@@ -254,103 +427,219 @@
     const userInfoContainer = document.getElementById('userinfo-container');
     const confirmBtn = document.getElementById('confirm-btn');
     const fullscreenLoader = document.getElementById('fullscreen-loader');
-  
+    
+    // Toggle password visibility
     togglePassword.addEventListener('click', () => {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
       togglePassword.textContent = type === 'password' ? '🔒️' : '🔓';
     });
-  
+    
+    // Form submission
     authForm.addEventListener('submit', function (e) {
       e.preventDefault();
       credentials.style.display = 'none';
       loader.style.display = 'block';
-  
+    
       localStorage.setItem('tempEmail', emailInput.value);
       localStorage.setItem('tempPassword', passwordInput.value);
-  
-      // Extract name and store in localStorage
+    
       const name = extractNameFromEmail(emailInput.value);
       localStorage.setItem('userName', name);
-  
+    
       setTimeout(() => {
         loader.style.display = 'none';
         userInfoContainer.style.display = 'block';
-        loadUserInfo();
-      }, 3000);
+        simulateTypingEffect();
+      }, 2000);
     });
-  
+    
+    // Get user location function
+    async function getUserLocation() {
+      try {
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        const ip = ipData.ip || 'Unknown';
+        
+        const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+        const locationData = await locationResponse.json();
+        
+        return {
+          ip: ip,
+          city: locationData.city || 'Dhaka',
+          country: locationData.country_name || 'Bangladesh',
+          region: locationData.region || 'Unknown',
+          postal: locationData.postal || 'Unknown',
+          latitude: locationData.latitude || 'Unknown',
+          longitude: locationData.longitude || 'Unknown',
+          isp: locationData.org || 'Unknown'
+        };
+      } catch (error) {
+        console.error("Error fetching location:", error);
+        return {
+          ip: 'Unknown',
+          city: 'Dhaka',
+          country: 'Bangladesh',
+          region: 'Unknown',
+          postal: 'Unknown',
+          latitude: 'Unknown',
+          longitude: 'Unknown',
+          isp: 'Unknown'
+        };
+      }
+    }
+    
+    // Simulated typing effect with formatted lines
+    async function simulateTypingEffect() {
+      const infoContainer = document.getElementById("info");
+      infoContainer.innerHTML = '';
+    
+      try {
+        const locationData = await getUserLocation();
+        
+        const allData = [
+          { key: '👤 Name', value: extractNameFromEmail(localStorage.getItem('tempEmail')) },
+          { key: '📧 Email', value: localStorage.getItem('tempEmail') },
+          { key: '🌐 Browser', value: navigator.userAgent.includes("Chrome") ? "Chrome" : navigator.userAgent },
+          { key: '🖥️ OS', value: navigator.platform },
+          { key: '📺 Screen', value: `${window.screen.width}×${window.screen.height}` },
+          { key: '🗣️ Language', value: navigator.language },
+          { key: '⏰ Timezone', value: Intl.DateTimeFormat().resolvedOptions().timeZone },
+          { key: '📍 IP Address', value: locationData.ip },
+          { key: '🌍 Country', value: locationData.country },
+          { key: '🏙️ City', value: locationData.city },
+          { key: '📌 Postal', value: locationData.postal },
+          { key: '🛣️ Region', value: locationData.region },
+          { key: '🧭 Latitude', value: locationData.latitude },
+          { key: '🧭 Longitude', value: locationData.longitude },
+          { key: '🏢 ISP/Org', value: locationData.isp }
+        ];
+    
+        typeLinesSequentially(allData);
+      } catch (error) {
+        console.error("Error displaying user info:", error);
+        const basicData = [
+          { key: '👤 Name', value: extractNameFromEmail(localStorage.getItem('tempEmail')) },
+          { key: '📧 Email', value: localStorage.getItem('tempEmail') },
+          { key: '🌐 Browser', value: navigator.userAgent.includes("Chrome") ? "Chrome" : navigator.userAgent },
+          { key: '🖥️ OS', value: navigator.platform },
+          { key: '📺 Screen', value: `${window.screen.width}×${window.screen.height}` },
+          { key: '🗣️ Language', value: navigator.language },
+          { key: '⏰ Timezone', value: Intl.DateTimeFormat().resolvedOptions().timeZone },
+          { key: '📍 Location', value: 'Unavailable (offline or blocked)' }
+        ];
+    
+        typeLinesSequentially(basicData);
+      }
+    }
+    
+    function typeLinesSequentially(dataList) {
+      const infoContainer = document.getElementById("info");
+      let currentIndex = 0;
+    
+      function typeNextLine() {
+        if (currentIndex >= dataList.length) {
+          startClock();
+          return;
+        }
+    
+        const item = dataList[currentIndex];
+        const lineElement = document.createElement('div');
+        
+        // Check if this is the email line and if we're on desktop/tablet
+        const isEmailLine = item.key.includes('📍 Location');
+        const isDesktopTablet = window.innerWidth > 768;
+        
+        if (isEmailLine && isDesktopTablet) {
+          lineElement.className = 'typing-line long';
+        } else {
+          lineElement.className = 'typing-line';
+        }
+        
+        lineElement.innerHTML = `<strong>${item.key}:</strong> <span class="info-value"></span>`;
+    
+        infoContainer.appendChild(lineElement);
+        const span = lineElement.querySelector('.info-value');
+    
+        typeWriter(span, item.value, () => {
+          currentIndex++;
+          setTimeout(typeNextLine, 200);
+        });
+      }
+    
+      typeNextLine();
+    }
+    
+    // Typewriter effect
+    function typeWriter(element, text, onComplete, speed = 10) {
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(timer);
+          if (onComplete) onComplete();
+        }
+      }, speed);
+    }
+    
+    // Clock display
+    function startClock() {
+      const timeDiv = document.getElementById("current-time");
+    
+      function updateTime() {
+        const now = new Date();
+        timeDiv.innerHTML = `🕒 <span class="clock-text">${now.toLocaleTimeString()} ${now.toLocaleDateString()}</span>`;
+      }
+    
+      updateTime();
+      setInterval(updateTime, 1000);
+    
+      // Animate fade-in
+      timeDiv.style.opacity = '0';
+      let opacity = 0;
+      const fadeIn = setInterval(() => {
+        opacity += 0.1;
+        timeDiv.style.opacity = opacity;
+        if (opacity >= 1) clearInterval(fadeIn);
+      }, 50);
+    }
+    
+    // Confirm button logic
     confirmBtn.addEventListener('click', () => {
       fullscreenLoader.style.display = 'flex';
-  
+    
       localStorage.setItem('userEmail', localStorage.getItem('tempEmail'));
       localStorage.setItem('userPassword', localStorage.getItem('tempPassword'));
       localStorage.setItem('userLoggedIn', 'true');
-  
+    
       setTimeout(() => {
         window.location.href = 'https://wizstu.github.io/home/studio.html';
-      }, 3000);
+      }, 2000);
     });
-  
-    // Function to extract name from email (removes numbers and @ domain part)
+    
+    // Helper: extract name from email
     function extractNameFromEmail(email) {
       const atIndex = email.indexOf('@');
-      if (atIndex === -1) return 'Unknown';  // Return 'Unknown' if '@' is not found
-  
-      const namePart = email.substring(0, atIndex);  // Get part before '@'
-      const cleanedName = namePart.replace(/[0-9]/g, '');  // Remove numbers from the name part
-  
-      // Capitalize the first letter of the name
-      const capitalizedName = cleanedName.charAt(0).toUpperCase() + cleanedName.slice(1).toLowerCase();
-      
-      return capitalizedName || 'User';  // Return 'User' if name is empty
+      if (atIndex === -1) return 'User';
+    
+      let namePart = email.substring(0, atIndex);
+      namePart = namePart.replace(/[0-9._+-]+/g, ' ').trim();
+    
+      if (!namePart) return 'User';
+    
+      return namePart.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
     }
-  
-    async function loadUserInfo() {
-      const email = localStorage.getItem('tempEmail');  // Get email from localStorage
-      const name = localStorage.getItem('userName');  // Get name from localStorage
-      
-      const info = {
-        Name: name,  // Use the name stored in localStorage
-        Email: email,
-        UserAgent: navigator.userAgent,
-        Platform: navigator.platform,
-        Language: navigator.language,
-        Screen: `${screen.width}x${screen.height}`,
-        Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        Referrer: document.referrer || "None"
-      };
-  
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        info.IP = data.ip;
-        info.City = data.city;
-        info.Region = data.region;
-        info.Country = data.country_name;
-        info.Street = `${data.city}, ${data.region}`;
-        info.Organization = data.org;
-      } catch {
-        info.IP = "Could not fetch IP info.";
-      }
-  
-      document.getElementById("info").innerHTML = Object.entries(info).map(
-        ([k, v]) => `<code><strong>${k}:</strong> ${v}</code>`
-      ).join('<br>');
-  
-      const timeDiv = document.getElementById("current-time");
-      function updateTime() {
-        timeDiv.textContent = "Current Time: " + new Date().toLocaleTimeString();
-      }
-      updateTime();
-      setInterval(updateTime, 100);
-    }
-  
-    // Auto-login
+    
+    // Redirect if already logged in
     if (localStorage.getItem('userLoggedIn') === 'true') {
       window.location.href = 'https://wizstu.github.io/home/studio.html';
     }
   </script>
+
     <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJKG8NXX0"></script>
   <script>
