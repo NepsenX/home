@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="system">
 <head>
@@ -53,7 +54,7 @@
     body {
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         background-color: var(--background);
-        background-image: url("https://media.istockphoto.com/id/162542504/photo/earth-sunrise-in-space.jpg?s=612x612&w=0&k=20&c=yOz6xe894yVDOtt29uFDybMbNyKdpW_4vOUUEkAlaEI=");
+        background-image: url("https://art.pixilart.com/b7b7da55876a37d.gif");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -68,7 +69,7 @@
       }
     
       [data-theme="dark"] body {
-        background-image: url("https://media.istockphoto.com/id/162542504/photo/earth-sunrise-in-space.jpg?s=612x612&w=0&k=20&c=yOz6xe894yVDOtt29uFDybMbNyKdpW_4vOUUEkAlaEI=");
+        background-image: url("https://art.pixilart.com/b7b7da55876a37d.gif");
       }
     /* Theme Switcher */
     .theme-switcher {
@@ -367,6 +368,7 @@
 
     .about-us img {
       max-width: 425px;
+      height: 225px;
       margin-right: 30px;
     }
 
@@ -484,8 +486,7 @@
       }
 
       .theme-switcher {
-        bottom: 1rem;
-        right: 1rem;
+        display: none;
       }
       .about-us {
         flex-direction: column;
@@ -499,11 +500,14 @@
         flex-direction: column;
         align-items: center;
       }
-      .text-4xl md:text-6xl font-extrabold mb-4{
+      .text-4xl.md\:text-6xl.font-extrabold.mb-4 {
+        font-size: 1.5rem; /* smaller font size */
         flex-direction: column;
         text-align: center;
       }
-      .text-lg md:text-xl text-gray-400{
+      
+      .text-lg.md\:text-xl.text-gray-400 {
+        font-size: 0.875rem; /* smaller font size */
         flex-direction: column;
         text-align: center;
       }
@@ -586,7 +590,181 @@
     .email-btn {
       background-color: var(--fb-btn); /* Email button with a pop of red */
     }
+    /* Settings Dropdown */
+    .settings-container {
+      position: relative;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .settings-btn:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    .settings-dropdown {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1001;
+    }
+
+    .settings-dropdown.active {
+      display: block;
+    }
+
+    .settings-option {
+      margin-bottom: 1rem;
+    }
+
+    .settings-option h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .settings-input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .settings-save-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    .setting-save-btn {
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-bg);
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    /* Media query for tablets (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .settings-dropdown {
+        width: 250px;
+        padding: 0.8rem;
+      }
+    }
     
+    /* Media query for mobile devices (max-width: 768px) */
+    @media (max-width: 768px) {
+      .settings-container {
+        margin-right: 10px;
+      }
+    
+      .settings-btn {
+        font-size: 1.2rem;
+        padding: 0.4rem;
+      }
+    
+      .settings-dropdown {
+        width: 90vw;
+        right: 5vw;
+        padding: 0.75rem;
+      }
+    
+      .settings-option h3 {
+        font-size: 0.9rem;
+      }
+    
+      .settings-save-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      } 
+    }
+    
+    @media (max-width: 768px) {
+    .settings-container {
+      margin-right: 0;
+    }
+  
+    .settings-dropdown {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 0;
+      display: none;
+      z-index: 1001;
+      overflow-y: auto;
+    }
+  
+    .settings-dropdown.active {
+      display: block;
+    }
+  
+    .settings-option h3 {
+      font-size: 1rem;
+    }
+  
+    .settings-save-btn {
+      font-size: 1rem;
+      padding: 0.75rem;
+    }
+  
+    /* Bottom Navigation Bar */
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--background);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      z-index: 1002;
+    }
+    .mobile-nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+  
+  /* Hide on larger screens (>768px) */
+  @media (min-width: 769px) {
+    .setting-save-btn {
+      display: none;
+    }
+  }
   </style>
 </head>
 <body>
@@ -598,12 +776,39 @@
     <button class="theme-btn" data-theme="">🌞</button>
     <button class="chat-toggle" id="chatToggle">💬</button>
   </div>
+  <button class="chat-toggle" id="chatToggle">💬</button>
   <button class="language-toggle" id="langToggleBtn">🌐</button>
   <div id="google_translate_element"></div>
   <!-- Navigation -->
   <nav class="nav-container">
     <div class="nav-content">
       <h1 class="gradient-text">Napsen</h1>
+      <div class="settings-container">
+        <button class="settings-btn" id="settingsBtn"><i class="fas fa-cog"></i></button>
+        <div class="settings-dropdown" id="settingsDropdown">
+          <div class="settings-header-logo">
+            <img src="https://assets.onecompiler.app/438cc35sk/43ffbxy48/images__12_-removebg-preview.png" alt="Logo" />
+          </div>
+          <div class="settings-option">
+            <h3><strong>Name</strong></h3>
+            <input type="text" id="userNameInput" class="settings-input" placeholder="Enter your name">
+          </div>
+          <div class="settings-option">
+            <h3><strong>Email</strong></h3>
+            <input type="email" id="userEmailInput" class="settings-input" placeholder="Enter your email">
+          </div>
+          <div class="settings-option">
+            <h3><strong>Email Password</strong></h3>
+            <input type="password" id="userPasswordInput" class="settings-input" placeholder="Enter password">
+          </div>
+          <div>
+            <button class="setting-save-btn" data-theme="light">🌞light Theme</button>
+            <button class="setting-save-btn" data-theme="dark">🌙dark Theme</button>
+            <button class="setting-save-btn" data-theme="system">💻System</button>
+          </div>
+          <button class="settings-save-btn" id="saveSettingsBtn">Save Settings</button>
+        </div>
+      </div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
@@ -621,7 +826,7 @@
   </section>
   <!-- About Us Section -->
   <section class="about-us" id="about">
-    <img src="https://assets.onecompiler.app/438cc35sk/43bubkrae/Web%20Wizards%20Studio%20logo%20with%20dark%20mode%20for%20Gen%20Z.png" alt="Web Wizards Studio Logo">
+    <img src="https://media.tenor.com/2uyENRmiUt0AAAAM/coding.gif" alt="Web Wizards Studio Logo">
     <div class="description">
       <h2>About Napsen</h2>
       <p>Napsen is a cutting-edge digital agency focused on creating innovative and scalable digital solutions for businesses of all sizes. With a talented team of designers, developers, and strategists, we help companies grow by building exceptional websites and applications that deliver outstanding user experiences. Whether it's web development, mobile apps, or digital marketing, Web Wizards Studio is committed to excellence in every project we undertake.</p>
@@ -633,7 +838,7 @@
     <h1>Our Services</h1>
   </section>
   <section class="services-grid" id="services">
-    <div class="service-card" onclick="loadService('https://wizstu.github.io/NeoDot/')">
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/NeoDot/')">
       <img src="https://assets.onecompiler.app/438cc35sk/43ekedjqg/Screenshot_2025-04-12_175711-Photoroom-fotor-20250412183519-removebg-preview.png" alt="Service Logo">
       <h3>NeoDot</h3>
     </div>
@@ -645,11 +850,11 @@
       <img src="https://assets.onecompiler.app/438cc35sk/43cge3a6x/BasiKno%20logo%20representing%20Mathematics,%20Physics,%20and%20Chemistry%20in%20a%20minimalist,%20evergreen%20style.png" alt="Service Logo">
       <h3>Basikno</h3>
     </div>
-    <div class="service-card" onclick="loadService('https://wizstu.github.io/virtubrowse')">
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/virtubrowse')">
       <img src="https://assets.onecompiler.app/438cc35sk/43etbxnkm/th-removebg-preview%20(4)%20(4).png" alt="Service Logo">
       <h3>Virtubrowse</h3>
     </div>
-    <div class="service-card" onclick="loadService('https://wizstu.github.io/cloudgaminghub/')">
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/cloudgaminghub/')">
       <img src="https://assets.onecompiler.app/438cc35sk/43etbxnkm/th-removebg-preview%20(2)%20(2).png" alt="Service Logo">
       <h3>Cloud Gaming Hub</h3>
     </div>
@@ -691,7 +896,7 @@
       }, 6000); // Adjust delay as needed (1000ms = 1 second)
     }
     // Theme Switching
-    const themeButtons = document.querySelectorAll('.theme-btn');
+    const themeButtons = document.querySelectorAll('.theme-btn, .setting-save-btn');
     const html = document.documentElement;
 
     function setTheme(theme) {
@@ -720,6 +925,42 @@
     mobileMenuBtn.addEventListener('click', () => {
       document.querySelector('.nav-links').classList.toggle('active');
     });
+    // Settings Dropdown
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    const userNameInput = document.getElementById('userNameInput');
+    const userEmailInput = document.getElementById('userEmailInput');
+    const userPasswordInput = document.getElementById('userPasswordInput');
+
+    // Load saved settings
+    if (localStorage.getItem('userName')) {
+      userNameInput.value = localStorage.getItem('userName');
+    }
+    if (localStorage.getItem('userEmail')) {
+      userEmailInput.value = localStorage.getItem('userEmail');
+    }
+    if (localStorage.getItem('userPassword')) {
+      userPasswordInput.value = localStorage.getItem('userPassword');
+    }
+
+    settingsBtn.addEventListener('click', () => {
+      settingsDropdown.classList.toggle('active');
+    });
+
+    saveSettingsBtn.addEventListener('click', () => {
+      localStorage.setItem('userName', userNameInput.value);
+      localStorage.setItem('userEmail', userEmailInput.value);
+      localStorage.setItem('userPassword', userPasswordInput.value);
+      settingsDropdown.classList.remove('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!settingsBtn.contains(e.target) && !settingsDropdown.contains(e.target)) {
+        settingsDropdown.classList.remove('active');
+      }
+    });
 
     // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -746,7 +987,7 @@
   <!-- Typed.js Animation -->
   <script>
     new Typed('#typed', {
-      strings: ['Web Wizards Studio.', 'We are web Dev.', 'Future Ready.', 'We Make Digital Magic 🪄', 'Crafting identity.', 'Innovation through code.', 'Designing the future.', 'Your vision, our expertise.', 'Creativity on the web.', 'Magic meets tech.', 'Shaping the digital world.', 'Ideas into websites.', 'Powering success with code.', 'Web solutions for tomorrow.', 'Future-proofing presence.', 'Unleashing design power.', 'Reimagining your brand.', 'More than websites.', 'Next-level dev.', 'Seamless experiences.', 'We turn code into magic.', 'Digital solutions that work.', 'Empowering businesses.', 'Pioneering the frontier.', 'Building tomorrow’s sites.', 'Elevating digital journeys.', 'Excellence in code.', 'Transforming lives online.', 'Design from code.', 'Pushing dev limits.', 'Experiences, not just sites.', 'Magic in every line.', 'Redefining experiences.', 'Developing the future.', 'Dreams into reality.', 'Timeless web design.', 'We don’t just code.', 'Bridges through dev.', 'Your ideas, our craft.', 'Web that stands out.', 'Innovate for success.', 'Design for tomorrow.', 'Every pixel counts.', 'Purpose-driven dev.', 'Code, creativity, power.', 'Empowering the web.', 'Sites into experiences.', 'A team of wizards.'],
+      strings: ['Napsen.', 'We are web Dev.', 'Future Ready.', 'We Make Digital Magic 🪄', 'Crafting identity.', 'Innovation through code.', 'Designing the future.', 'Your vision, our expertise.', 'Creativity on the web.', 'Magic meets tech.', 'Shaping the digital world.', 'Ideas into websites.', 'Powering success with code.', 'Web solutions for tomorrow.', 'Future-proofing presence.', 'Unleashing design power.', 'Reimagining your brand.', 'More than websites.', 'Next-level dev.', 'Seamless experiences.', 'We turn code into magic.', 'Digital solutions that work.', 'Empowering businesses.', 'Pioneering the frontier.', 'Building tomorrow’s sites.', 'Elevating digital journeys.', 'Excellence in code.', 'Transforming lives online.', 'Design from code.', 'Pushing dev limits.', 'Experiences, not just sites.', 'Magic in every line.', 'Redefining experiences.', 'Developing the future.', 'Dreams into reality.', 'Timeless web design.', 'We don’t just code.', 'Bridges through dev.', 'Your ideas, our craft.', 'Web that stands out.', 'Innovate for success.', 'Design for tomorrow.', 'Every pixel counts.', 'Purpose-driven dev.', 'Code, creativity, power.', 'Empowering the web.', 'Sites into experiences.', 'A mordan team of Nepsen.'],
       typeSpeed: 60,
       backSpeed: 30,
       loop: true
@@ -864,201 +1105,226 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AdBlock Detector - Multi Tab</title>
   <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #121212;
-        color: white;
-        margin: 0;
-        padding: 0;
-      }
-  
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-      }
-  
-      .modal-content {
-        background: linear-gradient(45deg, #1a1a1a 0%, #0a0a0a 100%);
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 700px;
-        box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
-        position: relative;
-        border: 3px solid darkred;
-        overflow: hidden;
-      }
-  
-      .modal-content::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, 
-          transparent 48%,
-          rgba(139, 0, 0, 0.1) 50%,
-          transparent 52%
-        );
-        animation: hologram 2.5s infinite linear;
-        pointer-events: none;
-      }
-  
-      .modal-header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #fff;
-        text-shadow: 0 0 15px darkred;
-        letter-spacing: 2px;
-      }
-  
-      .adblock-warning {
-        color: #ff6b6b;
-        font-size: 18px;
-        font-weight: bold;
-        background: linear-gradient(45deg, #2e0b0b 0%, #1a0000 100%);
-        padding: 10px;
-        border-radius: 5px;
-        border: 2px solid darkred;
-        margin-top: 20px;
-        text-shadow: 0 0 10px darkred;
-        box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
-      }
-  
-      .iframe-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-      }
-  
-      .iframe-container {
-        position: relative;
-        width: 100%;
-        max-width: 400px;
-        height: 250px;
-        border-radius: 10px;
-        overflow: hidden;
-        background: transparent;
-        box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 2px solid darkred;
-      }
-  
-      .iframe-container::before {
-        content: "";
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        right: -5px;
-        bottom: -5px;
-        border: 2px solid rgba(139, 0, 0, 0.3);
-        border-radius: 12px;
-        z-index: -1;
-      }
-  
-      .iframe-container:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 0 25px rgba(139, 0, 0, 0.6);
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out;
-      }
-  
-      .glass-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, rgba(139, 0, 0, 0.1) 0%, rgba(0,0,0,0.3) 100%);
-        backdrop-filter: blur(12px) brightness(1.2);
-        opacity: 1;
-        pointer-events: none;
-      }
-  
-      .glass-overlay::before {
-        content: "⚠️SYSTEM ALERT";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.2rem;
-        font-family: 'Courier New', monospace;
-        color: #fff;
-        text-shadow: 0 0 10px darkred;
-        letter-spacing: 2px;
-        opacity: 0.9;
-      }
-  
-      .hidden {
-        display: none !important;
-      }
-  
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 99999;
-      }
-  
-      .close-btn img {
-        width: 32px;
-        height: 32px;
-        filter: invert(0.8) sepia(1) hue-rotate(-20deg) saturate(5);
-        transition: all 0.2s ease;
-      }
-  
-      .close-btn img:hover {
-        filter: invert(1) sepia(1) hue-rotate(0deg) saturate(10);
-        transform: scale(1.1) rotate(90deg);
-      }
-  
-      @keyframes hologram {
-        0% { transform: translate(-25%, -25%) rotate(45deg); opacity: 0.3; }
-        50% { opacity: 0.6; }
-        100% { transform: translate(25%, 25%) rotate(45deg); opacity: 0.3; }
-      }
-  
-      @keyframes scanline {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100%); }
-      }
-      .iframe-container::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(0deg, 
-          transparent 48%,
-          rgba(139, 0, 0, 0.1) 50%,
-          transparent 52%
-        );
-        animation: hologram 1.5s infinite linear;
-        pointer-events: none;
-      }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 25px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 650px;
+      box-shadow: 0 10px 25px rgba(32, 152, 209, 0.3);
+      position: relative;
+      border: 2px solid #2098d1;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    
+    .modal-content::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, 
+        transparent 48%,
+        rgba(32, 152, 209, 0.15) 50%,
+        transparent 52%
+      );
+      animation: hologram 3s infinite linear;
+      pointer-events: none;
+    }
+    
+    .modal-header {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(32, 152, 209, 0.7);
+      letter-spacing: 1px;
+      position: relative;
+    }
+    
+    .modal-header::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #2098d1, transparent);
+    }
+    
+    .adblock-warning {
+      color: #4fc3f7;
+      font-size: 16px;
+      font-weight: 600;
+      background: rgba(23, 72, 128, 0.3);
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(32, 152, 209, 0.5);
+      margin: 25px 0;
+      text-shadow: 0 0 8px rgba(79, 195, 247, 0.5);
+      box-shadow: 0 0 20px rgba(32, 152, 209, 0.2);
+      backdrop-filter: blur(5px);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    
+    .adblock-warning::before {
+      content: "⚠️";
+      font-size: 20px;
+    }
+    
+    .iframe-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 250px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: transparent;
+      box-shadow: 0 5px 15px rgba(32, 152, 209, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid rgba(32, 152, 209, 0.7);
+    }
+    .iframe-container::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 1px solid rgba(32, 152, 209, 0.3);
+      border-radius: 12px;
+      z-index: -1;
+    }
+    
+    .iframe-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(32, 152, 209, 0.4);
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .glass-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(32, 152, 209, 0.1) 0%, rgba(0,0,0,0.3) 100%);
+      backdrop-filter: blur(8px) brightness(1.1);
+      opacity: 1;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .glass-overlay::before {
+      content: "Advertisement Content";
+      position: absolute;
+      font-size: 1.1rem;
+      font-family: 'Segoe UI', sans-serif;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 0 10px rgba(32, 152, 209, 0.7);
+      letter-spacing: 1px;
+      padding: 10px 20px;
+      background: rgba(23, 72, 128, 0.3);
+      border-radius: 30px;
+      border: 1px solid rgba(32, 152, 209, 0.5);
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(32, 152, 209, 0.2);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 99999;
+      transition: all 0.2s ease;
+    }
+    
+    .close-btn:hover {
+      background: rgba(32, 152, 209, 0.4);
+    }
+    
+    .close-btn img {
+      width: 24px;
+      height: 24px;
+      filter: invert(0.9) sepia(1) hue-rotate(170deg) saturate(5);
+      transition: all 0.2s ease;
+    }
+    
+    .close-btn:hover img {
+      transform: rotate(90deg);
+    }
+    
+    @keyframes hologram {
+      0% { transform: translate(-25%, -25%) rotate(45deg); opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { transform: translate(25%, 25%) rotate(45deg); opacity: 0.3; }
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(32, 152, 209, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(32, 152, 209, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(32, 152, 209, 0); }
+    }
+    
+    .iframe-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, 
+        transparent 48%,
+        rgba(32, 152, 209, 0.1) 50%,
+        transparent 52%
+      );
+      animation: hologram 2s infinite linear;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -1070,7 +1336,7 @@
       </button>
       <div class="modal-header">Advertisements</div>
       <div class="adblock-warning" id="adblock-warning" style="display: none;">
-        ⚠️ AdBlock Detected! Please disable it!
+        AdBlock Detected! Please disable it!
       </div>
       <div class="iframe-wrapper hidden" id="iframe-wrapper">
         <!-- Iframes will be injected here -->
