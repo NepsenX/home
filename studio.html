@@ -25,6 +25,7 @@
       --chat-header:white;
       --chat-footer-input:white;
       --fb-btn:#ECF0F1;
+      --bi:url('https://i.pinimg.com/736x/48/11/8a/48118af7ff6b767a4aab266527d81b6e.jpg');
     }
 
     [data-theme="dark"] {
@@ -42,6 +43,8 @@
       --chat-header:black;
       --chat-footer-input:black;
       --fb-btn:#2C3E50;
+      --bi:url('https://www.shutterstock.com/shutterstock/videos/3468378385/thumb/1.jpg?ip=x480');
+
     }
 
     * {
@@ -337,6 +340,7 @@
         --chat-header:black;
         --chat-footer-input:black;
         --fb-btn:#2C3E50;
+        --bi:url('https://www.shutterstock.com/shutterstock/videos/3468378385/thumb/1.jpg?ip=x480');
       }
     }
 
@@ -354,6 +358,7 @@
         --chat-header:white;
         --chat-footer-input:white;
         --fb-btn:#ECF0F1;
+        --bi:url('https://i.pinimg.com/736x/48/11/8a/48118af7ff6b767a4aab266527d81b6e.jpg');
       }
       body {
         background-image: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2hpdGUlMjBuYXR1cmV8ZW58MHx8MHx8fDA%3D");
@@ -528,7 +533,10 @@
       }
     }
      #contact {
-      background: var(--background); /* Cool gradient background */
+      background-image:var(--bi); /* Cool gradient background */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: #fff;
       padding: 60px 20px;
       text-align: center;
@@ -766,6 +774,149 @@
       display: none;
     }
   }
+/* Contact Form - Perfectly Sized for All Devices */
+#contactForm {
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* PC/Laptop (1024px and above) */
+@media (min-width: 1024px) {
+  #contactForm {
+    max-width: 600px;
+    padding: 3rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 1.1rem 1.5rem;
+    font-size: 1.05rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #contactForm {
+    max-width: 550px;
+    padding: 2.5rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 1rem 1.25rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1.1rem;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  #contactForm {
+    max-width: 100%;
+    padding: 2rem;
+    margin: 1.5rem;
+    border-radius: 14px;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1rem;
+  }
+}
+
+/* Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+  #contactForm {
+    padding: 1.5rem;
+    margin: 1.5rem 0.75rem;
+    border-radius: 12px;
+  }
+  
+  #contactForm label {
+    font-size: 0.95rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 0.8rem 1rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+}
+
+/* Form Elements (Universal Styles) */
+#contactForm label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+#contactForm button[type="submit"] {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Focus/Hover States */
+#contactForm input:focus,
+#contactForm textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+#contactForm button[type="submit"]:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+#contactForm button[type="submit"]:disabled {
+  background: var(--border);
+  cursor: not-allowed;
+  transform: none;
+}
   </style>
 </head>
 <body>
@@ -881,8 +1032,23 @@
       <h2>Contact Us</h2>
       <p>Connection creates power.Your voice can change everything. Let’s connect.</p>
       <div class="contact-buttons">
-        <a href="https://www.facebook.com/groups/1975968936224766" target="_blank" class="contact-btn fb-btn">Join in Group</a>
-        <a href="mailto:arafatislamlam15@gmail.com" class="contact-btn email-btn">Email Us</a>
+        <!-- Add this after the contact-buttons div -->
+        <form id="contactForm" class="mt-8 max-w-md mx-auto">
+          <div id="nameField" class="mb-4">
+            <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+            <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+          </div>
+          <div id="emailField" class="mb-4">
+            <label for="email" class="block text-sm font-medium mb-1">Your Email</label>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your email">
+          </div>
+          <div class="mb-4">
+            <label for="message" class="block text-sm font-medium mb-1">Your Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your message"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">Send Message</button>
+          <div id="formMessage" class="form-message mt-2 text-center"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -1070,6 +1236,87 @@
     const isVisible = chatContainer.style.display === "flex";
     chatContainer.style.display = isVisible ? "none" : "flex";
   });
+  // Contact Form Submission
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+      to: 'arafatislamlam15@gmail.com' // Your email address
+    };
+    
+    // Validate form
+    if (!data.name || !data.email || !data.message) {
+      formMessage.textContent = 'Please fill in all fields';
+      formMessage.className = 'form-message error-message';
+      return;
+    }
+    
+    if (!data.email.includes('@') || !data.email.includes('.')) {
+      formMessage.textContent = 'Please enter a valid email address';
+      formMessage.className = 'form-message error-message';
+      return;
+    }
+    
+    // Change button text
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    formMessage.textContent = '';
+    
+    // Send email using FormSubmit.co
+    fetch('https://formsubmit.co/ajax/arafatislamlam15@gmail.com', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      formMessage.textContent = 'Message sent successfully! We will respond soon.';
+      formMessage.className = 'form-message success-message';
+      form.reset();
+    })
+    .catch(error => {
+      formMessage.textContent = 'Error sending message. Please try again later.';
+      formMessage.className = 'form-message error-message';
+      console.error('Error:', error);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+      
+      // Reset message after 5 seconds
+      setTimeout(() => {
+        formMessage.textContent = '';
+      }, 5000);
+    });
+  });
+  
+  // Check localStorage and hide/show fields accordingly
+  document.addEventListener('DOMContentLoaded', function() {
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (userName) {
+      document.getElementById('name').value = userName;
+      document.getElementById('nameField').style.display = 'none';
+    }
+    
+    if (userEmail) {
+      document.getElementById('email').value = userEmail;
+      document.getElementById('emailField').style.display = 'none';
+    }
+  });
   </script>
   <script>
     const toggleBtn = document.getElementById('langToggleBtn');
@@ -1097,384 +1344,6 @@
       }, 'google_translate_element');
     };
   </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AdBlock Detector - Multi Tab</title>
-  <style>
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    
-    .modal-content {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      padding: 25px;
-      border-radius: 12px;
-      width: 85%;
-      max-width: 650px;
-      box-shadow: 0 10px 25px rgba(32, 152, 209, 0.3);
-      position: relative;
-      border: 2px solid #2098d1;
-      overflow: hidden;
-      backdrop-filter: blur(8px);
-    }
-    
-    .modal-content::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, 
-        transparent 48%,
-        rgba(32, 152, 209, 0.15) 50%,
-        transparent 52%
-      );
-      animation: hologram 3s infinite linear;
-      pointer-events: none;
-    }
-    
-    .modal-header {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 25px;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(32, 152, 209, 0.7);
-      letter-spacing: 1px;
-      position: relative;
-    }
-    
-    .modal-header::after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #2098d1, transparent);
-    }
-    
-    .adblock-warning {
-      color: #4fc3f7;
-      font-size: 16px;
-      font-weight: 600;
-      background: rgba(23, 72, 128, 0.3);
-      padding: 12px 15px;
-      border-radius: 8px;
-      border: 1px solid rgba(32, 152, 209, 0.5);
-      margin: 25px 0;
-      text-shadow: 0 0 8px rgba(79, 195, 247, 0.5);
-      box-shadow: 0 0 20px rgba(32, 152, 209, 0.2);
-      backdrop-filter: blur(5px);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    
-    .adblock-warning::before {
-      content: "⚠️";
-      font-size: 20px;
-    }
-    
-    .iframe-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 25px;
-    }
-    
-    
-    .iframe-container {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      height: 250px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: transparent;
-      box-shadow: 0 5px 15px rgba(32, 152, 209, 0.3);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border: 1px solid rgba(32, 152, 209, 0.7);
-    }
-    .iframe-container::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
-      border: 1px solid rgba(32, 152, 209, 0.3);
-      border-radius: 12px;
-      z-index: -1;
-    }
-    
-    .iframe-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(32, 152, 209, 0.4);
-    }
-    
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      opacity: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-    
-    .glass-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(32, 152, 209, 0.1) 0%, rgba(0,0,0,0.3) 100%);
-      backdrop-filter: blur(8px) brightness(1.1);
-      opacity: 1;
-      pointer-events: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .glass-overlay::before {
-      content: "Advertisement Content";
-      position: absolute;
-      font-size: 1.1rem;
-      font-family: 'Segoe UI', sans-serif;
-      color: rgba(255, 255, 255, 0.9);
-      text-shadow: 0 0 10px rgba(32, 152, 209, 0.7);
-      letter-spacing: 1px;
-      padding: 10px 20px;
-      background: rgba(23, 72, 128, 0.3);
-      border-radius: 30px;
-      border: 1px solid rgba(32, 152, 209, 0.5);
-    }
-    
-    .hidden {
-      display: none !important;
-    }
-    
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(32, 152, 209, 0.2);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 99999;
-      transition: all 0.2s ease;
-    }
-    
-    .close-btn:hover {
-      background: rgba(32, 152, 209, 0.4);
-    }
-    
-    .close-btn img {
-      width: 24px;
-      height: 24px;
-      filter: invert(0.9) sepia(1) hue-rotate(170deg) saturate(5);
-      transition: all 0.2s ease;
-    }
-    
-    .close-btn:hover img {
-      transform: rotate(90deg);
-    }
-    
-    @keyframes hologram {
-      0% { transform: translate(-25%, -25%) rotate(45deg); opacity: 0.3; }
-      50% { opacity: 0.6; }
-      100% { transform: translate(25%, 25%) rotate(45deg); opacity: 0.3; }
-    }
-    
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(32, 152, 209, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(32, 152, 209, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(32, 152, 209, 0); }
-    }
-    
-    .iframe-container::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(0deg, 
-        transparent 48%,
-        rgba(32, 152, 209, 0.1) 50%,
-        transparent 52%
-      );
-      animation: hologram 2s infinite linear;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="adblock-modal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">
-        <img src="https://cdn-icons-png.flaticon.com/512/359/359778.png" alt="Close" />
-      </button>
-      <div class="modal-header">Advertisements</div>
-      <div class="adblock-warning" id="adblock-warning" style="display: none;">
-        AdBlock Detected! Please disable it!
-      </div>
-      <div class="iframe-wrapper hidden" id="iframe-wrapper">
-        <!-- Iframes will be injected here -->
-      </div>
-    </div>
-  </div>
-
-<script>
-    const adLink = "https://www.effectiveratecpm.com/kwt9e48a?key=e1a642698e24eaf1688285a0b751b9bc";
-    let adTimer; // Variable to store the timer for re-showing ads after 5 minutes
-
-    // Anti-AdBlock Detection Function
-    function detectAdBlock(callback) {
-        let isBlocked = false;
-        let checkDone = 0;
-
-        // Check 1: adsbox element
-        let testAd = document.createElement("div");
-        testAd.innerHTML = "&nbsp;";
-        testAd.className = "adsbox";
-        testAd.style.display = "block";
-        testAd.style.position = "absolute";
-        testAd.style.left = "-9999px";
-        document.body.appendChild(testAd);
-
-        setTimeout(function () {
-            if (testAd.offsetHeight === 0 || testAd.offsetParent === null) {
-                isBlocked = true;
-            }
-            testAd.remove();
-            done();
-        }, 100);
-
-        // Check 2: block adsbygoogle script
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.onerror = function () {
-            isBlocked = true;
-            done();
-        };
-        script.onload = function () {
-            done();
-        };
-        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-        document.body.appendChild(script);
-
-        function done() {
-            checkDone++;
-            if (checkDone === 2) {
-                callback(isBlocked);
-            }
-        }
-    }
-
-    // Load iframes into the modal
-    function loadIframes() {
-        const iframeWrapper = document.getElementById("iframe-wrapper");
-        iframeWrapper.innerHTML = ""; // Clear any previous content
-        for (let i = 0; i < 2; i++) {
-            let container = document.createElement("div");
-            container.className = "iframe-container";
-
-            let overlay = document.createElement("div");
-            overlay.className = "glass-overlay";
-
-            let iframe = document.createElement("iframe");
-            iframe.src = adLink;
-            iframe.loading = "lazy";
-
-            container.appendChild(overlay);
-            container.appendChild(iframe);
-            iframeWrapper.appendChild(container);
-        }
-    }
-
-    // Function to check AdBlock status and load iframes
-    function checkAndLoad() {
-        detectAdBlock(function (isBlocked) {
-            const warning = document.getElementById("adblock-warning");
-            const iframeWrapper = document.getElementById("iframe-wrapper");
-
-            if (isBlocked) {
-                warning.style.display = "block";
-                iframeWrapper.classList.add("hidden");
-            } else {
-                warning.style.display = "none";
-                iframeWrapper.classList.remove("hidden");
-                loadIframes();
-            }
-        });
-    }
-
-    // Function to open the modal
-    function openModal() {
-        document.getElementById("adblock-modal").style.display = "flex";
-    }
-
-    // Function to close the modal and reset timer for re-opening after 5 minutes
-    function closeModal() {
-        document.getElementById("adblock-modal").style.display = "none";
-        adTimer = setTimeout(() => {
-            checkAndLoad();
-            openModal(); // Reopen the modal after 5 minutes
-        }, 300000); // 300000 ms = 5 minutes
-    }
-
-    // Function to open a new tab ad (only on desktop)
-    function openNewWindow() {
-        if (window.innerWidth >= 1024) { // Check for desktop (1024px width and above)
-            window.open(adLink, "_blank", "noopener,noreferrer,width=800,height=600");
-        }
-    }
-
-    // Check screen size and prevent new tab ads on mobile/tablets
-    function shouldOpenInNewTab() {
-        return window.innerWidth >= 1024; // Desktop only
-    }
-
-    window.onload = function () {
-        checkAndLoad(); // Check AdBlock and load content
-        openModal(); // Open the modal initially
-
-        // First ad will open after 10 seconds
-        setTimeout(function () {
-            if (shouldOpenInNewTab()) {
-                openNewWindow(); // Open first ad in a new tab after 10 seconds on desktop
-            }
-        }, 10000); // 10 seconds after page load
-
-        // New ad will open every 3 minutes (only on desktop)
-        setInterval(function () {
-            if (shouldOpenInNewTab()) {
-                openNewWindow(); // Open a new ad in a new tab every 3 minutes (only on desktop)
-            }
-        }, 180000); // 180000 ms = 3 minutes
-    };
-</script>
     <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJKG8NXX0"></script>
   <script>
