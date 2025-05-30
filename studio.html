@@ -959,6 +959,30 @@
 .chat-body::-webkit-scrollbar-track {
   background: transparent;
 }
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--chat-toggle);
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* মোবাইল টাচের জন্য */
+@media (max-width: 768px) {
+  .chat-toggle {
+    padding: 18px;
+    font-size: 28px;
+  }
+}
   </style>
 </head>
 <body>
@@ -968,10 +992,9 @@
     <button class="theme-btn" data-theme="dark">🌙</button>
     <button class="theme-btn" data-theme="system">💻</button>
     <button class="theme-btn" data-theme="">🌞</button>
-    <button class="chat-toggle" id="chatToggle">💬</button>
   </div>
-  <button class="chat-toggle" id="chatToggle">💬</button>
-  <button class="language-toggle" id="langToggleBtn">🌐</button>
+  <div>  <button class="chat-toggle" id="chatToggle">💬</button>
+  <button class="language-toggle" id="langToggleBtn">🌐</button></div>
   <div id="google_translate_element"></div>
   <!-- Navigation -->
   <nav class="nav-container">
