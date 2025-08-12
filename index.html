@@ -1,350 +1,1422 @@
+
+ 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepsen</title>
-    <meta name="google-adsense-account" content="ca-pub-9289713479529007">
-    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/438cc35sk/43fcju7j3/th-removebg-preview__3_-removebg-preview%20(1).png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nepsen</title>
+  <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/438cc35sk/43fcju7j3/th-removebg-preview__3_-removebg-preview%20(1).png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://nepsen.github.io/cloudgaminghub/920.js"></script>
 <script src="/ishahi/auto-offline.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --secondary: #f472b6;
+      --background: #ffffff;
+      --text: #1e293b;
+      --card-bg: #f8fafc;
+      --border: #e2e8f0;
+      --user:#fff;
+      --bot:#fff;
+      --chat-toggle:black;
+      --chat-footer:#222;
+      --chat-body:#0a0a0a;
+      --chat-header:white;
+      --chat-footer-input:white;
+      --fb-btn:#ECF0F1;
+      --bi:url('https://i.pinimg.com/736x/48/11/8a/48118af7ff6b767a4aab266527d81b6e.jpg');
+    }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-            background: radial-gradient(circle at center, 
-                #0a1a2a 0%, 
-                #07162a 30%, 
-                #051225 70%);
-            color: #e0f2ff;
-        }
+    [data-theme="dark"] {
+      --primary: #a78bfa;
+      --secondary: #f9a8d4;
+      --background: #0f172a;
+      --text: #f8fafc;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --user:#000;
+      --bot:#000;
+      --chat-toggle:black;
+      --chat-footer:#222;
+      --chat-body:#454242;
+      --chat-header:black;
+      --chat-footer-input:black;
+      --fb-btn:#2C3E50;
+      --bi:url('https://www.shutterstock.com/shutterstock/videos/3468378385/thumb/1.jpg?ip=x480');
 
-        /* Futuristic grid overlay */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 300%;
-            height: 300%;
-            background: 
-                linear-gradient(90deg, 
-                    rgba(64, 164, 255, 0.05) 1px, 
-                    transparent 1px),
-                linear-gradient(rgba(64, 164, 255, 0.05) 1px, 
-                    transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 60s linear infinite;
-            mix-blend-mode: overlay;
-            z-index: 0;
-        }
+    }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-50px, -50px); }
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.1s;
+    }
 
-        /* Holographic particles */
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, 
-                rgba(100, 220, 255, 0.3) 0%, 
-                transparent 70%);
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: particleFloat linear infinite;
-            z-index: 1;
-        }
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background-color: var(--background);
+        background-image: url("https://uploads.onecompiler.io/438cc35sk/43ka6yuyd/b7b7da55876a37d.gif");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        transition: background-image 0.3s ease;
+      }
+    
+      [data-theme="light"] body {
+        background-image: url("https://uploads.onecompiler.io/438cc35sk/43ka6yuyd/photo-1428908728789-d2de25dbd4e2.jpg");
+      }
+    
+      [data-theme="dark"] body {
+        background-image: url("https://uploads.onecompiler.io/438cc35sk/43ka6yuyd/b7b7da55876a37d.gif");
+      }
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 50px;
+      display: flex;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
 
-        @keyframes particleFloat {
-            to {
-                transform: translate(
-                    calc(var(--x) * 100vw),
-                    calc(var(--y) * 100vh)
-                );
-                opacity: 0;
-            }
-        }
+    .theme-btn {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+    }
 
-        /* Quantum loader */
-        .loader-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            z-index: 10;
-            perspective: 1000px;
-        }
+    .theme-btn.active {
+      background: var(--primary);
+      color: white;
+    }
 
-        .quantum-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            animation: quantumSpin 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-            box-shadow: 0 0 15px rgba(64, 164, 255, 0.5);
-        }
+    /* Glowing Gradient Text */
+    .gradient-text {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
 
-        .quantum-ring:nth-child(1) {
-            border-top: 2px solid #40a4ff;
-            border-bottom: 2px solid #40a4ff;
-            animation-delay: 0.1s;
-        }
+    /* Modern Navigation */
+    .nav-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      position: Sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .quantum-ring:nth-child(2) {
-            border-left: 2px solid #88d3ff;
-            border-right: 2px solid #88d3ff;
-            animation-delay: 0.2s;
-        }
+    .nav-content {
+      max-width:1200000px;
+      max-height:60px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .quantum-ring:nth-child(3) {
-            border-top: 2px solid #00c8ff;
-            border-bottom: 2px solid #00c8ff;
-            animation-delay: 0.3s;
-            transform: rotateX(60deg);
-        }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px; /* navbar নিচে মেনু নামবে */
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      border-radius: 12px;
+      z-index: 999;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
 
-        @keyframes quantumSpin {
-            0% { transform: rotateY(0deg) rotateX(0deg); }
-            50% { transform: rotateY(180deg) rotateX(180deg); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
-        }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
 
-        /* Neural connection lines */
-        .neural-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-        .neural-line {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, #40a4ff, transparent);
-            height: 1px;
-            width: 100%;
-            top: 50%;
-            opacity: 0.5;
-            animation: neuralPulse 2s infinite;
-        }
+    /* Hero Section */
+    .hero {
+      padding: 8rem 2rem;
+      text-align: center;
+    }
 
-        @keyframes neuralPulse {
-            0%, 100% { opacity: 0.2; transform: scaleX(0.5); }
-            50% { opacity: 0.8; transform: scaleX(1); }
-        }
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color:var(--text);
+    }
 
-        /* Holographic logo */
-        .logo {
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 15;
-            filter: 
-                drop-shadow(0 0 10px rgba(64, 164, 255, 0.7))
-                drop-shadow(0 0 20px rgba(100, 220, 255, 0.5));
-            animation: logoFloat 4s ease-in-out infinite;
-        }
+    /* Services Grid */
+    .services-grid {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
 
-        @keyframes logoFloat {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-15px); }
-        }
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Futuristic text */
-        .loader-text {
-            margin-top: 40px;
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            z-index: 10;
-            position: relative;
-            color: transparent;
-            background: linear-gradient(90deg, #e0f2ff, #88d3ff, #e0f2ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            background-size: 200% auto;
-            animation: textShine 3s linear infinite;
-            text-shadow: 0 0 10px rgba(100, 220, 255, 0.3);
-        }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
 
-        @keyframes textShine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, var(--primary), transparent);
+      transform: rotate(45deg);
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    .service-card img {
+      width: 100px; /* Fixed width */
+      height: 100px; /* Fixed height */
+      object-fit: cover; /* Ensures the image covers the area without distortion */
+      border-radius: 8px; /* Optional, for rounded corners */
+      margin-bottom: 10px; /* Optional, adds some spacing between the image and text */
+    }
+    .service-card h3{
+      color: var(--text);
+    }
 
-        /* Status indicator */
-        .status {
-            position: absolute;
-            bottom: 30px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            color: #88d3ff;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-        }
+    .chat-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      max-width: 90%;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      display: none;
+      flex-direction: column;
+    }
+    
+    .chat-header {
+      background: var(--chat-header);
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    
+    .chat-body {
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      background: var(--chat-body);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-footer {
+      display: flex;
+      background: var(--chat-footer);
+      padding: 10px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+    
+    .chat-footer input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      background: var(--chat-footer-input);
+    }
+    
+    .chat-footer button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      margin-left: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--chat-toggle);
+      color: #000;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    }
+    
+    .message {
+      max-width: 75%;
+      padding: 8px 12px;
+      margin: 5px;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+    .user {
+      background: var(--user);
+      align-self: flex-end;
+      text-align: left;
+    }
+    
+    .bot {
+      background: var(--bot);
+      align-self: flex-start;
+      text-align: left;
+    }
 
-        .status::before {
-            content: '';
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #00c8ff;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #00c8ff;
-            animation: statusPulse 1.5s infinite;
-        }
+    /* Dark/Light System Overrides */
+    @media (prefers-color-scheme: dark) {
+      [data-theme="system"] {
+        --background: #0f172a;
+        --text: #f8fafc;
+        --card-bg: #1e293b;
+        --border: #334155;
+        --user:#000;
+        --bot:#000;
+        --chat-toggle:black;
+        --chat-footer:#222;
+        --chat-body:#454242;
+        --chat-header:black;
+        --chat-footer-input:black;
+        --fb-btn:#2C3E50;
+        --bi:url('https://www.shutterstock.com/shutterstock/videos/3468378385/thumb/1.jpg?ip=x480');
+      }
+    }
 
-        @keyframes statusPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-        }
+    @media (prefers-color-scheme: light) {
+      [data-theme="system"] {
+        --background: #ffffff;
+        --text: #1e293b;
+        --card-bg: #f8fafc;
+        --border: #e2e8f0;
+        --user:#fff;
+        --bot:#fff;
+        --chat-toggle:black;
+        --chat-footer:#222;
+        --chat-body:#0a0a0a;
+        --chat-header:white;
+        --chat-footer-input:white;
+        --fb-btn:#ECF0F1;
+        --bi:url('https://i.pinimg.com/736x/48/11/8a/48118af7ff6b767a4aab266527d81b6e.jpg');
+      }
+      body {
+        background-image: url("https://uploads.onecompiler.io/438cc35sk/43ka6yuyd/photo-1428908728789-d2de25dbd4e2.jpg");
+      }
+    }
+    /* About Section */
+    .about-us {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      padding: 60px 20px;
+    }
 
-        /* Binary rain effect */
-        .binary-rain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
+    .about-us img {
+      max-width: 425px;
+      height: 225px;
+      margin-right: 30px;
+    }
 
-        .binary-column {
-            position: absolute;
-            top: -100%;
-            width: 1em;
-            color: rgba(100, 220, 255, 0.3);
-            font-family: monospace;
-            font-size: 16px;
-            writing-mode: vertical-rl;
-            text-orientation: upright;
-            animation: binaryFall linear infinite;
-        }
+    .about-us .description {
+      flex: 1;
+    }
 
-        @keyframes binaryFall {
-            to { top: 100%; }
-        }
+    .about-us h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
 
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-    </style>
+    .about-us p {
+      font-size: 1rem;
+    }
+    /* Loader Spinner */
+    .loader-spinner {
+      border-top-color: var(--primary);
+      border-bottom-color: var(--primary);
+      border-left-color: transparent;
+      border-right-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hidden {
+      display: none;
+    }
+    /* Floating Language Button */
+    .language-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--background);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .language-toggle:hover {
+      background: #3367d6;
+    }
+
+    /* Google Translate Container */
+    #google_translate_element {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      z-index: 998;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem;
+      display: none;
+    }
+
+    /* Style Google Translate dropdown */
+    #google_translate_element select {
+      font-size: 1rem !important;
+      padding: 0.5rem !important;
+      border-radius: 2px !important;
+      border: 1px solid #ccc !important;
+      background-color: var(--card-bg) !important;
+      color: var(--text-color) !important;
+      max-width: 100%;
+      width: 100% !important;
+    }
+
+    /* Reset unwanted Google Translate styles */
+    iframe.goog-te-banner-frame,
+    .goog-te-balloon-frame,
+    .goog-te-menu-frame {
+      max-width: 100vw !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Fix iframe and dropdown on mobile */
+    @media (max-width: 600px) {
+      .language-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+
+      #google_translate_element {
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      #google_translate_element select {
+        font-size: 1rem !important;
+      }
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .theme-switcher {
+        display: none;
+      }
+      .about-us {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-us img {
+        margin-bottom: 150px;
+      }
+      .services {
+        flex-direction: column;
+        align-items: center;
+      }
+      .text-4xl.md\:text-6xl.font-extrabold.mb-4 {
+        font-size: 1.5rem; /* smaller font size */
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .text-lg.md\:text-xl.text-gray-400 {
+        font-size: 0.875rem; /* smaller font size */
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.5rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+     #contact {
+      background-image:var(--bi); /* Cool gradient background */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .contact-btn {
+      background-color: #1877f2; /* Facebook blue */
+      color: var(--text);
+      font-size: 16px;
+      padding: 15px 30px;
+      text-align: center;
+      display: inline-block;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-btn:hover {
+      background-color: #3b5998;
+      transform: scale(1.05);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-btn:active {
+      transform: scale(1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fb-btn {
+      background-color: var(--fb-btn);
+    }
+    
+    .email-btn {
+      background-color: var(--fb-btn); /* Email button with a pop of red */
+    }
+    /* Settings Dropdown */
+    .settings-container {
+      position: relative;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .settings-btn:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    .settings-dropdown {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1001;
+    }
+
+    .settings-dropdown.active {
+      display: block;
+    }
+
+    .settings-option {
+      margin-bottom: 1rem;
+    }
+
+    .settings-option h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .settings-input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .settings-save-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    .setting-save-btn {
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--card-bg);
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+    /* Media query for tablets (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .settings-dropdown {
+        width: 250px;
+        padding: 0.8rem;
+      }
+    }
+    
+    /* Media query for mobile devices (max-width: 768px) */
+    @media (max-width: 768px) {
+      .settings-container {
+        margin-right: 10px;
+      }
+    
+      .settings-btn {
+        font-size: 1.2rem;
+        padding: 0.4rem;
+      }
+    
+      .settings-dropdown {
+        width: 90vw;
+        right: 5vw;
+        padding: 0.75rem;
+      }
+    
+      .settings-option h3 {
+        font-size: 0.9rem;
+      }
+    
+      .settings-save-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      } 
+    }
+    
+    @media (max-width: 768px) {
+    .settings-container {
+      margin-right: 0;
+    }
+  
+    .settings-dropdown {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 0;
+      display: none;
+      z-index: 1001;
+      overflow-y: auto;
+    }
+  
+    .settings-dropdown.active {
+      display: block;
+    }
+  
+    .settings-option h3 {
+      font-size: 1rem;
+    }
+  
+    .settings-save-btn {
+      font-size: 1rem;
+      padding: 0.75rem;
+    }
+  
+    /* Bottom Navigation Bar */
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--background);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      z-index: 1002;
+    }
+    .mobile-nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+  
+  /* Hide on larger screens (>768px) */
+  @media (min-width: 769px) {
+    .setting-save-btn {
+      display: none;
+    }
+  }
+/* Contact Form - Perfectly Sized for All Devices */
+#contactForm {
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* PC/Laptop (1024px and above) */
+@media (min-width: 1024px) {
+  #contactForm {
+    max-width: 600px;
+    padding: 3rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 1.1rem 1.5rem;
+    font-size: 1.05rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #contactForm {
+    max-width: 550px;
+    padding: 2.5rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 1rem 1.25rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1.1rem;
+  }
+}
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+  #contactForm {
+    max-width: 100%;
+    padding: 2rem;
+    margin: 1.5rem;
+    border-radius: 14px;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 1rem;
+  }
+}
+
+/* Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+  #contactForm {
+    padding: 1.5rem;
+    margin: 1.5rem 0.75rem;
+    border-radius: 12px;
+  }
+  
+  #contactForm label {
+    font-size: 0.95rem;
+  }
+  
+  #contactForm input,
+  #contactForm textarea {
+    padding: 0.8rem 1rem;
+  }
+  
+  #contactForm button[type="submit"] {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+}
+
+/* Form Elements (Universal Styles) */
+#contactForm label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+#contactForm button[type="submit"] {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Focus/Hover States */
+#contactForm input:focus,
+#contactForm textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+#contactForm button[type="submit"]:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+#contactForm button[type="submit"]:disabled {
+  background: var(--border);
+  cursor: not-allowed;
+  transform: none;
+}
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--card-bg);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+  border: 2px solid var(--card-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--card-bg);
+}
+
+/* Specific scrollbar for chat body */
+.chat-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--chat-toggle);
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* মোবাইল টাচের জন্য */
+@media (max-width: 768px) {
+  .chat-toggle {
+    padding: 18px;
+    font-size: 28px;
+  }
+}
+  </style>
 </head>
 <body>
-    <div class="binary-rain" id="binaryRain"></div>
-    
-    <div class="loader-container">
-        <div class="quantum-ring"></div>
-        <div class="quantum-ring"></div>
-        <div class="quantum-ring"></div>
-        <div class="neural-lines">
-            <div class="neural-line" style="top: 30%; animation-delay: 0.1s;"></div>
-            <div class="neural-line" style="top: 70%; animation-delay: 0.3s;"></div>
+    <!-- Theme Switcher -->
+  <div class="theme-switcher">
+    <button class="theme-btn" data-theme="light">🌞</button>
+    <button class="theme-btn" data-theme="dark">🌙</button>
+    <button class="theme-btn" data-theme="system">💻</button>
+    <button class="theme-btn" data-theme="">🌞</button>
+  </div>
+  <div>  <button class="chat-toggle" id="chatToggle">💬</button>
+  <button class="language-toggle" id="langToggleBtn">🌐</button></div>
+  <div id="google_translate_element"></div>
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-content">
+      <h1 class="gradient-text">Nepsen</h1>
+      <div class="settings-container">
+        <button class="settings-btn" id="settingsBtn"><i class="fas fa-cog"></i></button>
+        <div class="settings-dropdown" id="settingsDropdown">
+          <div class="settings-header-logo">
+            <img src="https://uploads.onecompiler.io/438cc35sk/43ffbxy48/images__12_-removebg-preview.png" alt="Logo" />
+          </div>
+          <div class="settings-option">
+            <h3><strong>Name</strong></h3>
+            <input type="text" id="userNameInput" class="settings-input" placeholder="Enter your name">
+          </div>
+          <div class="settings-option">
+            <h3><strong>Email</strong></h3>
+            <input type="email" id="userEmailInput" class="settings-input" placeholder="Enter your email">
+          </div>
+          <div class="settings-option">
+            <h3><strong>Email Password</strong></h3>
+            <input type="password" id="userPasswordInput" class="settings-input" placeholder="Enter password">
+          </div>
+          <div>
+            <button class="setting-save-btn" data-theme="light">🌞light Theme</button>
+            <button class="setting-save-btn" data-theme="dark">🌙dark Theme</button>
+            <button class="setting-save-btn" data-theme="system">💻System</button>
+          </div>
+          <button class="settings-save-btn" id="saveSettingsBtn">Save Settings</button>
         </div>
-        <img src="https://assets.onecompiler.app/438cc35sk/43fcju7j3/th-removebg-preview__3_-removebg-preview%20(1).png" alt="Logo" class="logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home"><strong>Home</strong></a></li>
+        <li><a href="#services"><strong>Services</strong></a></li>
+        <li><a href="#about"><strong>About</strong></a></li>
+        <li><a href="#contact"><strong>Contact</strong></a></li>
+      </ul>
     </div>
+  </nav>
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20">
+    <div class="text-center">
+      <h2 class="text-4xl md:text-6xl font-extrabold mb-4"><span id="typed"></span></h2>
+      <p class="text-lg md:text-xl text-gray-400">Your Modern journey to success begins here.</p>
+    </div>
+  </section>
+  <!-- About Us Section -->
+  <section class="about-us" id="about">
+    <img src="https://media.tenor.com/2uyENRmiUt0AAAAM/coding.gif" alt="Web Wizards Studio Logo">
+    <div class="description">
+      <h2>About Nepsen</h2>
+      <p>Nepsen is a cutting-edge digital agency focused on creating innovative and scalable digital solutions for businesses of all sizes. With a talented team of designers, developers, and strategists, we help companies grow by building exceptional websites and applications that deliver outstanding user experiences. Whether it's web development, mobile apps, or digital marketing, Web Wizards Studio is committed to excellence in every project we undertake.</p>
+    </div>
+  </section>
+  <!-- Services Grid -->
+  <!-- Services Section -->
+  <section class="hero" id="services">
+    <h1>Our Services</h1>
+  </section>
+  <section class="services-grid" id="services">
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/NeoDot/')">
+      <img src="https://uploads.onecompiler.io/438cc35sk/43ekedjqg/Screenshot_2025-04-12_175711-Photoroom-fotor-20250412183519-removebg-preview.png" alt="Service Logo">
+      <h3>NeoDot</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/ishahi')">
+      <img src="https://uploads.onecompiler.io/438cc35sk/43g7ssatu/image-removebg-preview%20(2).png" alt="Service Logo">
+      <h3>Ishahi</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/basikno')">
+      <img src="https://uploads.onecompiler.io/438cc35sk/43cge3a6x/BasiKno%20logo%20representing%20Mathematics,%20Physics,%20and%20Chemistry%20in%20a%20minimalist,%20evergreen%20style.png" alt="Service Logo">
+      <h3>Basikno</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/virtubrowse')">
+      <img src="https://uploads.onecompiler.io/438cc35sk/43etbxnkm/th-removebg-preview%20(4)%20(4).png" alt="Service Logo">
+      <h3>Virtubrowse</h3>
+    </div>
+    <div class="service-card" onclick="loadService('https://nepsen.github.io/cloudgaminghub/')">
+      <img src="https://uploads.onecompiler.io/438cc35sk/43etbxnkm/th-removebg-preview%20(2)%20(2).png" alt="Service Logo">
+      <h3>Cloud Gaming Hub</h3>
+    </div>
+    <!-- Repeat the above block 47 times as required -->
+  </section>
+  <div id="loader" class="hidden fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="loader-spinner w-16 h-16 border-t-4 border-b-4 border-primary border-solid rounded-full animate-spin"></div>
+  </div>
+  <!-- Chat Bubble -->
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">Chatbot</div>
+    <div class="chat-body" id="messages">
+      <p class="message bot">Hello! How can I help you? I can answer questions that start with "what" or "who".</p>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="userInput" placeholder="Type here..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>Connection creates power.Your voice can change everything. Let’s connect.</p>
+      <div class="contact-buttons">
+        <!-- Add this after the contact-buttons div -->
+        <form id="contactForm" class="mt-8 max-w-md mx-auto">
+          <div id="nameField" class="mb-4">
+            <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+            <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+          </div>
+          <div id="emailField" class="mb-4">
+            <label for="email" class="block text-sm font-medium mb-1">Your Email</label>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your email">
+          </div>
+          <div class="mb-4">
+            <label for="message" class="block text-sm font-medium mb-1">Your Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your message"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">Send Message</button>
+          <div id="formMessage" class="form-message mt-2 text-center"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script>
+    function loadService(url) {
+      // Show the loader
+      document.getElementById('loader').classList.remove('hidden');
+      
+      // Redirect to the URL after a brief delay to allow the loader to appear
+      setTimeout(function() {
+        window.location.href = url; // Open in the same tab
+      }, 6000); // Adjust delay as needed (1000ms = 1 second)
+    }
+    // Theme Switching
+    const themeButtons = document.querySelectorAll('.theme-btn, .setting-save-btn');
+    const html = document.documentElement;
 
-    <div class="loader-text">Nepsen</div>
-    <div class="status">SYSTEM INITIALIZATION</div>
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeButtons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
 
-    <script>
-        // Create futuristic particles
-        function createParticles() {
-            const particleCount = 20;
-            for(let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.cssText = `
-                    --x: ${Math.random() * 2 - 1};
-                    --y: ${Math.random() * 2 - 1};
-                    width: ${Math.random() * 100 + 50}px;
-                    height: ${Math.random() * 100 + 50}px;
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    animation-duration: ${15 + Math.random() * 30}s;
-                    animation-delay: ${Math.random() * 5}s;
-                    opacity: ${Math.random() * 0.2 + 0.1};
-                `;
-                document.body.appendChild(particle);
-            }
-        }
+    themeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const theme = button.dataset.theme;
+        setTheme(theme);
+      });
+    });
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    setTheme(savedTheme);
 
-        // Create binary rain effect
-        function createBinaryRain() {
-            const binaryRain = document.getElementById('binaryRain');
-            const columns = Math.floor(window.innerWidth / 20);
-            
-            for(let i = 0; i < columns; i++) {
-                const column = document.createElement('div');
-                column.className = 'binary-column';
-                column.style.left = `${(i * 20) + (Math.random() * 10)}px`;
-                column.style.animationDuration = `${5 + Math.random() * 10}s`;
-                column.style.animationDelay = `${Math.random() * 5}s`;
-                
-                // Generate random binary (with some 1s and 0s)
-                let binaryText = '';
-                const length = 20 + Math.floor(Math.random() * 10);
-                for(let j = 0; j < length; j++) {
-                    binaryText += Math.random() > 0.7 ? '1' : '0';
-                }
-                
-                column.textContent = binaryText;
-                binaryRain.appendChild(column);
-            }
-        }
+    // Mobile Menu
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.innerHTML = '☰';
+    mobileMenuBtn.classList.add('mobile-menu-btn');
+    document.querySelector('.nav-content').appendChild(mobileMenuBtn);
 
-        // System initialization sequence
-        function updateStatus(text) {
-            document.querySelector('.status').textContent = text;
-        }
+    mobileMenuBtn.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+    // Settings Dropdown
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    const userNameInput = document.getElementById('userNameInput');
+    const userEmailInput = document.getElementById('userEmailInput');
+    const userPasswordInput = document.getElementById('userPasswordInput');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            createBinaryRain();
-            
-            // Simulate system boot sequence
-            setTimeout(() => updateStatus("LOADING QUANTUM CORE..."), 500);
-            setTimeout(() => updateStatus("CONNECTING NEURAL NET..."), 1500);
-            setTimeout(() => updateStatus("SYNCING DATA STREAMS..."), 2500);
-            setTimeout(() => updateStatus("OPTIMIZING MATRIX..."), 3500);
-            setTimeout(() => updateStatus("SYSTEM READY"), 4500);
-            
-            setTimeout(() => {
-                document.querySelector(".loader-container").classList.add("fade-out");
-                document.querySelector(".loader-text").classList.add("fade-out");
-                document.querySelector(".status").classList.add("fade-out");
-                setTimeout(() => {
-                    window.location.href = "https://nepsen.github.io/home/login.html";
-                }, 1000);
-            }, 6500);
+    // Load saved settings
+    if (localStorage.getItem('userName')) {
+      userNameInput.value = localStorage.getItem('userName');
+    }
+    if (localStorage.getItem('userEmail')) {
+      userEmailInput.value = localStorage.getItem('userEmail');
+    }
+    if (localStorage.getItem('userPassword')) {
+      userPasswordInput.value = localStorage.getItem('userPassword');
+    }
+
+    settingsBtn.addEventListener('click', () => {
+      settingsDropdown.classList.toggle('active');
+    });
+
+    saveSettingsBtn.addEventListener('click', () => {
+      localStorage.setItem('userName', userNameInput.value);
+      localStorage.setItem('userEmail', userEmailInput.value);
+      localStorage.setItem('userPassword', userPasswordInput.value);
+      settingsDropdown.classList.remove('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!settingsBtn.contains(e.target) && !settingsDropdown.contains(e.target)) {
+        settingsDropdown.classList.remove('active');
+      }
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
-    </script>
+      });
+    });
+
+    // Service Card Animation
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
+  <!-- Typed.js Animation -->
+  <script>
+    new Typed('#typed', {
+      strings: ['Napsen.', 'We are web Dev.', 'Future Ready.', 'We Make Digital Magic 🪄', 'Crafting identity.', 'Innovation through code.', 'Designing the future.', 'Your vision, our expertise.', 'Creativity on the web.', 'Magic meets tech.', 'Shaping the digital world.', 'Ideas into websites.', 'Powering success with code.', 'Web solutions for tomorrow.', 'Future-proofing presence.', 'Unleashing design power.', 'Reimagining your brand.', 'More than websites.', 'Next-level dev.', 'Seamless experiences.', 'We turn code into magic.', 'Digital solutions that work.', 'Empowering businesses.', 'Pioneering the frontier.', 'Building tomorrow’s sites.', 'Elevating digital journeys.', 'Excellence in code.', 'Transforming lives online.', 'Design from code.', 'Pushing dev limits.', 'Experiences, not just sites.', 'Magic in every line.', 'Redefining experiences.', 'Developing the future.', 'Dreams into reality.', 'Timeless web design.', 'We don’t just code.', 'Bridges through dev.', 'Your ideas, our craft.', 'Web that stands out.', 'Innovate for success.', 'Design for tomorrow.', 'Every pixel counts.', 'Purpose-driven dev.', 'Code, creativity, power.', 'Empowering the web.', 'Sites into experiences.', 'A mordan team of Nepsen.'],
+      typeSpeed: 60,
+      backSpeed: 30,
+      loop: true
+    });
+  </script>
+  <script>
+  function addMessage(text, sender = "bot") {
+    const message = document.createElement("p");
+    message.className = `message ${sender}`;
+    message.textContent = text;
+    document.getElementById("messages").appendChild(message);
+    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  }
+  function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const userText = userInput.value.trim();
+    if (!userText) return;
+  
+    addMessage(userText, "user");
+    userInput.value = "";
+  
+    const lowerCaseText = userText.toLowerCase();
+    // Define questions related to name, email, and password
+    const nameQuestions = [
+      "what's my name?", "what is my name?", "are you know my name?", "who am i?", "tell me my name",
+      "What's my name?", "What is my name?", "Are you know my name?", "Who am i?", "Tell me my name"
+    ];
+  
+    const emailQuestions = [
+      "what is my email?", "what is my email address?", "do you know my email?", "tell me my email", 
+      "tell my email address", "What is my email?", "What is my email address?", "Do you know my email?", "Tell me my email"
+    ];
+  
+    const passwordQuestions = [
+      "what is my email password?", "please write my email password", "plz tell me my email password", 
+      "plz write my email password", "please tell me my email password", "What is my email password?", 
+      "Please write my email password", "Plz tell me my email password"
+    ];
+  
+    // Check if the user's input is a question about their name
+    if (nameQuestions.includes(lowerCaseText)) {
+      const userName = localStorage.getItem('userName') || 'User';  // Default to 'User' if no name is stored
+      addMessage(`Your name is ${userName}`, "bot");
+    }
+    // Check if the user's input is a question about their email
+    else if (emailQuestions.includes(lowerCaseText)) {
+      const userEmail = localStorage.getItem('userEmail') || 'Not Set';  // Default if no email is stored
+      addMessage(`Your email is ${userEmail}`, "bot");
+    }
+    // Check if the user's input is a question about their password
+    else if (passwordQuestions.includes(lowerCaseText)) {
+      const userPassword = localStorage.getItem('userPassword') || 'Not Set';  // Default if no password is stored
+      addMessage(`Your email password is ${userPassword}`, "bot");
+    }
+    else {
+      // Handle general queries using Wikipedia API
+      fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(userText)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.extract) {
+            addMessage(data.extract, "bot");
+          } else {
+            addMessage("Sorry, I couldn't find an answer. Try another question! I can answer questions that start with 'what' or 'who'. Like: pen, the Quran, etc.", "bot");
+          }
+        })
+        .catch(() => addMessage("Error retrieving data. Try again!", "bot"));
+    }
+  }
+  
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  }
+  const chatContainer = document.getElementById("chatContainer");
+  const chatToggle = document.getElementById("chatToggle");
+  
+  chatToggle.addEventListener("click", () => {
+    const isVisible = chatContainer.style.display === "flex";
+    chatContainer.style.display = isVisible ? "none" : "flex";
+  });
+  // Contact Form Submission
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formMessage = document.getElementById('formMessage');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+      to: 'arafatislamlam15@gmail.com' // Your email address
+    };
+    
+    // Validate form
+    if (!data.name || !data.email || !data.message) {
+      formMessage.textContent = 'Please fill in all fields';
+      formMessage.className = 'form-message error-message';
+      return;
+    }
+    
+    if (!data.email.includes('@') || !data.email.includes('.')) {
+      formMessage.textContent = 'Please enter a valid email address';
+      formMessage.className = 'form-message error-message';
+      return;
+    }
+    
+    // Change button text
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    formMessage.textContent = '';
+    
+    // Send email using FormSubmit.co
+    fetch('https://formsubmit.co/ajax/arafatislamlam15@gmail.com', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      formMessage.textContent = 'Message sent successfully! We will respond soon.';
+      formMessage.className = 'form-message success-message';
+      form.reset();
+    })
+    .catch(error => {
+      formMessage.textContent = 'Error sending message. Please try again later.';
+      formMessage.className = 'form-message error-message';
+      console.error('Error:', error);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+      
+      // Reset message after 5 seconds
+      setTimeout(() => {
+        formMessage.textContent = '';
+      }, 5000);
+    });
+  });
+  
+  // Check localStorage and hide/show fields accordingly
+  document.addEventListener('DOMContentLoaded', function() {
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+    
+    if (userName) {
+      document.getElementById('name').value = userName;
+      document.getElementById('nameField').style.display = 'none';
+    }
+    
+    if (userEmail) {
+      document.getElementById('email').value = userEmail;
+      document.getElementById('emailField').style.display = 'none';
+    }
+  });
+  </script>
+  <script>
+    const toggleBtn = document.getElementById('langToggleBtn');
+    const translateEl = document.getElementById('google_translate_element');
+    let googleLoaded = false;
+
+    toggleBtn.addEventListener('click', () => {
+      if (!googleLoaded) {
+        const script = document.createElement('script');
+        script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        document.body.appendChild(script);
+        googleLoaded = true;
+      }
+      translateEl.style.display = translateEl.style.display === 'none' || !translateEl.style.display
+        ? 'block'
+        : 'none';
+    });
+
+    window.googleTranslateElementInit = () => {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,it,ja,zh,ru,pt,ar,hi,bn,ko,vi,th,tr,nl,pl,sv,fi,el,cs,hu', // Updated with 3 more languages
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+  </script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJKG8NXX0"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-QCJKG8NXX0');
-    </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJKG8NXX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QCJKG8NXX0');
+  </script>
 </body>
 </html>
